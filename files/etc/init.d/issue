@@ -1,0 +1,14 @@
+#!/bin/sh /etc/rc.common
+
+START=06
+
+boot() {
+    rm -f /var/run/*.pid
+    rm -f /tmp/run/*.pid
+    
+    find /var/run -type f -name "*.pid" -exec rm -f {} \;
+}
+
+start() {
+    boot
+}

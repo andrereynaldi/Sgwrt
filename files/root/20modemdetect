@@ -1,0 +1,34 @@
+#!/bin/sh
+# /etc/hotplug.d/usb/20-modem-detect
+
+case "$ACTION" in
+    add)
+        case "$PRODUCT" in
+            # Dell modems
+            413c/81d7/*|413c/81d8/*|413c/81d9/*|413c/81da/*|413c/81db/*|413c/81dc/*)
+                logger "Dell modem detected: $PRODUCT"
+                if [ -f /etc/init.d/modemmanager ]; then
+                    (sleep 5; /etc/init.d/modemmanager restart) &
+                else
+                    logger "ERROR: modemmanager init script not found"
+                fi
+                ;;
+            # Tw 5G modems  
+            1e2d/00b3/*|1e2d/00b7/*)
+                logger "Tw 5G modem detected: $PRODUCT"
+                if [ -f /etc/init.d/modemmanager ]; then
+                    (sleep 5; /etc/init.d/modemmanager restart) &
+                else
+                    logger "ERROR: modemmanager init script not found"
+                fi
+                ;;
+        esac
+        ;;
+    remove)
+        case "$PRODUCT" in
+            413c/81d7/*|413c/81d8/*|413c/81d9/*|413c/81da/*|413c/81db/*|413c/81dc/*|1e2d/00b3/*|1e2d/00b7/*)
+                logger "Modem removed: $PRODUCT"
+                ;;
+        esac
+        ;;
+esac
