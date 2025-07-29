@@ -87,7 +87,7 @@ configure_profile_packages() {
     fi
 
     if [[ "${ARCH_2:-}" == "x86_64" ]] || [[ "${ARCH_2:-}" == "i386" ]]; then
-        PACKAGES+=" kmod-iwlwifi iw-full pciutils"
+        PACKAGES+=" kmod-iwlwifi iw-full pciutils wireless-tools"
     fi
 
     if [[ "${TYPE:-}" == "OPHUB" ]]; then
