@@ -116,6 +116,9 @@ uci set network.mm.device='/sys/devices/platform/scb/fd500000.pcie/pci0000:00/00
 uci set network.mm.apn='internet' 2>/dev/null
 uci set network.mm.auth='none' 2>/dev/null
 uci set network.mm.iptype='ipv4' 2>/dev/null
+uci set network.wwan=interface 2>/dev/null
+uci set network.wwan.proto='none' 2>/dev/null
+uci set network.wwan.device='wwan0' 2>/dev/null
 uci delete network.wan6 2>/dev/null
 uci commit network 2>/dev/null
 log_status "SUCCESS" "Network configuration completed"
@@ -255,8 +258,9 @@ log_status "SUCCESS" "Misc settings configured"
 # add auto sinkron jam, Clean Cache, Remove mm tty
 log_status "INFO" "Add Auto Sinkron Jam, Clean Cache, Remove mm tty..."
 sed -i '/exit 0/i #sh /usr/bin/autojam.sh bug.com' /etc/rc.local 2>/dev/null
+sed -i '/exit 0/i /sbin/free.sh' /etc/rc.local 2>/dev/null
 rm -f /etc/hotplug.d/tty/25-modemmanager-tty 2>/dev/null
-log_status "SUCCESS" "Auto sync, cache settings, remove mm tty applied"
+log_status "SUCCESS" "Auto sync, Cache clean, Remove mm tty applied"
 
 # add rules
 log_status "INFO" "Adding and running rules script..."
@@ -392,7 +396,7 @@ for pkg in luci-app-openclash luci-app-nikki luci-app-passwall; do
         case "$pkg" in
             luci-app-openclash)
                 rm -f /etc/config/openclash1 2>/dev/null
-                rm -rf /etc/openclash /usr/share/openclash /usr/lib/lua/luci/view/openclash 2>/dev/null
+                rm -rf /etc/openclash 2>/dev/null
                 sed -i '104s/Enable/Disable/' /etc/config/alpha 2>/dev/null
                 sed -i '167s#.*#<!-- & -->#' /usr/lib/lua/luci/view/themes/argon/header.htm 2>/dev/null
                 sed -i '187s#.*#<!-- & -->#' /usr/lib/lua/luci/view/themes/argon/header.htm 2>/dev/null
