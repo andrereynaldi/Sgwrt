@@ -1,43 +1,41 @@
 #!/bin/sh
 # /etc/hotplug.d/usb/20-modem-detect
 
+is_supported_modem() {
+    case "$PRODUCT" in
+        # Dell modems
+        413c/81d7/*|413c/81d9/*)
+            return 0 ;;
+        # Tw 5G modems  
+        1e2d/00b3/*|1e2d/00b7/*)
+            return 0 ;;
+        # Other modems
+        12d1/15c1/*|2cb7/0007/*|0489/e0b4/*)
+            return 0 ;;
+        *)
+            return 1 ;;
+    esac
+}
+
+restart_modemmanager() {
+    if [ -f /etc/init.d/modemmanager ]; then
+        logger "Restarting modemmanager for modem: $PRODUCT"
+        (sleep 5; /etc/init.d/modemmanager restart) &
+    else
+        logger "ERROR: modemmanager init script not found"
+    fi
+}
+
 case "$ACTION" in
     add)
-        case "$PRODUCT" in
-            # Dell modems
-            413c/81d7/*|413c/81d9/*)
-                logger "Dell modem detected: $PRODUCT"
-                if [ -f /etc/init.d/modemmanager ]; then
-                    (sleep 5; /etc/init.d/modemmanager restart) &
-                else
-                    logger "ERROR: modemmanager init script not found"
-                fi
-                ;;
-            # Tw 5G modems  
-            1e2d/00b3/*|1e2d/00b7/*)
-                logger "Tw 5G modem detected: $PRODUCT"
-                if [ -f /etc/init.d/modemmanager ]; then
-                    (sleep 5; /etc/init.d/modemmanager restart) &
-                else
-                    logger "ERROR: modemmanager init script not found"
-                fi
-                ;;
-            # Other modems
-            12d1/15c1/*|2cb7/0007/*|0489/e0b4/*)
-                logger "other modems: $PRODUCT"
-                if [ -f /etc/init.d/modemmanager ]; then
-                    (sleep 5; /etc/init.d/modemmanager restart) &
-                else
-                    logger "ERROR: modemmanager init script not found"
-                fi
-                ;;
-        esac
+        if is_supported_modem; then
+            logger "Modem detected: $PRODUCT"
+            restart_modemmanager
+        fi
         ;;
     remove)
-        case "$PRODUCT" in
-            413c/81d7/*|12d1/15c1/*|2cb7/0007/*|0489/e0b4/*|1e2d/00b3/*|1e2d/00b7/*)
-                logger "Modem removed: $PRODUCT"
-                ;;
-        esac
+        if is_supported_modem; then
+            logger "Modem removed: $PRODUCT"
+        fi
         ;;
 esac
