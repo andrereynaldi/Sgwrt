@@ -5,7 +5,7 @@ case "$ACTION" in
     add)
         case "$PRODUCT" in
             # Dell modems
-            413c/81d7/*|413c/81d8/*|413c/81d9/*|413c/81da/*|413c/81db/*|413c/81dc/*)
+            413c/81d7/*|413c/81d9/*)
                 logger "Dell modem detected: $PRODUCT"
                 if [ -f /etc/init.d/modemmanager ]; then
                     (sleep 5; /etc/init.d/modemmanager restart) &
@@ -22,11 +22,20 @@ case "$ACTION" in
                     logger "ERROR: modemmanager init script not found"
                 fi
                 ;;
+            # Other modems
+            12d1/15c1/*|2cb7/0007/*|0489/e0b4/*)
+                logger "other modems: $PRODUCT"
+                if [ -f /etc/init.d/modemmanager ]; then
+                    (sleep 5; /etc/init.d/modemmanager restart) &
+                else
+                    logger "ERROR: modemmanager init script not found"
+                fi
+                ;;
         esac
         ;;
     remove)
         case "$PRODUCT" in
-            413c/81d7/*|413c/81d8/*|413c/81d9/*|413c/81da/*|413c/81db/*|413c/81dc/*|1e2d/00b3/*|1e2d/00b7/*)
+            413c/81d7/*|12d1/15c1/*|2cb7/0007/*|0489/e0b4/*|1e2d/00b3/*|1e2d/00b7/*)
                 logger "Modem removed: $PRODUCT"
                 ;;
         esac
