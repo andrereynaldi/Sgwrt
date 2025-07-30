@@ -23,7 +23,8 @@ on:
         options:
           - all-device
           - Amlogic s905 MXQ-Pro+
-          - Amlogic s905lb Q96-mini
+          - Amlogic s905 Beelink-Mini
+          - Amlogic s905lb Q96-Mini
           - Amlogic s905w TX3-Mini
           - Amlogic s905w X96-Mini
           - Amlogic s905x B860H
@@ -100,7 +101,8 @@ jobs:
           {
             "target": [
               "Amlogic s905 MXQ-Pro+",
-              "Amlogic s905lb Q96-mini",
+              "Amlogic s905 Beelink-Mini",
+              "Amlogic s905lb Q96-Mini",
               "Amlogic s905w TX3-Mini",
               "Amlogic s905w X96-Mini",
               "Amlogic s905x B860H",
@@ -193,7 +195,7 @@ jobs:
             - All Version Kernel Wifi ON Devices Tertentu
             ## Supported Devices ##
             ## Amlogic Series
-            - **S905**: MXQ-Pro+
+            - **S905**: MXQ-Pro+, Beelink-Mini
             - **S905D**: Phicomm-N1
             - **S905L**: B860AV2, Mibox-4
             - **S905W**: TX3-Mini, X96-Mini
@@ -319,6 +321,12 @@ jobs:
               echo "TARGET_BUILD=$TARGET_BUILD" >> $GITHUB_ENV
               echo "KERNEL=$KERNEL" >> $GITHUB_ENV
               ;;
+            "Amlogic s905 Beelink-Mini")
+              TARGET_BUILD="s905-beelink-mini"
+              KERNEL="5.15.y_6.6.y_6.12.y"
+              echo "TARGET_BUILD=$TARGET_BUILD" >> $GITHUB_ENV
+              echo "KERNEL=$KERNEL" >> $GITHUB_ENV
+              ;;
             "Amlogic s905d Phicomm-N1")
               TARGET_BUILD="s905d"
               KERNEL="5.15.y_6.6.y_6.12.y"
@@ -367,7 +375,7 @@ jobs:
               echo "TARGET_BUILD=$TARGET_BUILD" >> $GITHUB_ENV
               echo "KERNEL=$KERNEL" >> $GITHUB_ENV
               ;;
-            "Amlogic s905lb Q96-mini")
+            "Amlogic s905lb Q96-Mini")
               TARGET_BUILD="s905lb-q96-mini"
               KERNEL="5.15.y_6.6.y_6.12.y"
               echo "TARGET_BUILD=$TARGET_BUILD" >> $GITHUB_ENV
