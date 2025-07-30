@@ -116,9 +116,6 @@ uci set network.mm.device='/sys/devices/platform/scb/fd500000.pcie/pci0000:00/00
 uci set network.mm.apn='internet' 2>/dev/null
 uci set network.mm.auth='none' 2>/dev/null
 uci set network.mm.iptype='ipv4' 2>/dev/null
-uci set network.wwan=interface 2>/dev/null
-uci set network.wwan.proto='none' 2>/dev/null
-uci set network.wwan.device='wwan0' 2>/dev/null
 uci delete network.wan6 2>/dev/null
 uci commit network 2>/dev/null
 log_status "SUCCESS" "Network configuration completed"
@@ -258,7 +255,7 @@ log_status "SUCCESS" "Misc settings configured"
 # add auto sinkron jam, Clean Cache, Remove mm tty
 log_status "INFO" "Add Auto Sinkron Jam, Clean Cache, Remove mm tty..."
 sed -i '/exit 0/i #sh /usr/bin/autojam.sh bug.com' /etc/rc.local 2>/dev/null
-sed -i '/exit 0/i /sbin/free.sh' /etc/rc.local 2>/dev/null
+sed -i '/exit 0/i #/sbin/free.sh' /etc/rc.local 2>/dev/null
 rm -f /etc/hotplug.d/tty/25-modemmanager-tty 2>/dev/null
 log_status "SUCCESS" "Auto sync, Cache clean, Remove mm tty applied"
 
@@ -372,8 +369,6 @@ for pkg in luci-app-openclash luci-app-nikki luci-app-passwall; do
                 ln -sf /etc/openclash/core/clash_meta /etc/openclash/clash 2>/dev/null
                 rm -f /etc/config/openclash 2>/dev/null
                 rm -rf /etc/openclash/custom /etc/openclash/game_rules 2>/dev/null
-                rm -f /usr/share/openclash/openclash_version.sh 2>/dev/null
-                rm -f /usr/share/openclash/clash_version.sh 2>/dev/null
                 find /etc/openclash/rule_provider -type f ! -name '*.yaml' -exec rm -f {} \; 2>/dev/null
                 mv /etc/config/openclash1 /etc/config/openclash 2>/dev/null
                 ;;
@@ -456,7 +451,7 @@ log_status "INFO" "Check log file: $LOG_FILE"
 log_status "INFO" "========================================="
 
 sync
-sleep 7
+sleep 5
 reboot
 
 exit 0
