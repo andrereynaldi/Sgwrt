@@ -20,9 +20,36 @@ is_supported_modem() {
 restart_modemmanager() {
     if [ -f /etc/init.d/modemmanager ]; then
         logger "Restarting modemmanager for modem: $PRODUCT"
-        (sleep 5; /etc/init.d/modemmanager restart) &
+        /etc/init.d/modemmanager restart
+        return $?  # Return actual restart status
     else
         logger "ERROR: modemmanager init script not found"
+        return 1
+    fi
+}
+
+save_apply_interface() {
+    logger "Saving and applying interface mm"
+    
+    # Commit with error check
+    if ! uci commit network; then
+        logger "ERROR: Failed to commit network config"
+        return 1
+    fi
+    
+    # Reload with error check  
+    if ! /etc/init.d/network reload; then
+        logger "ERROR: Failed to reload network"
+        return 1
+    fi
+    
+    # Check if interface exists before ifup
+    if uci -q get network.mm >/dev/null; then
+        ifup mm
+        logger "Interface mm brought up"
+    else
+        logger "WARNING: Interface mm not configured"
+        return 1
     fi
 }
 
@@ -30,7 +57,13 @@ case "$ACTION" in
     add)
         if is_supported_modem; then
             logger "Modem detected: $PRODUCT"
-            restart_modemmanager
+            
+            # Run in background to prevent hotplug timeout
+            (
+                restart_modemmanager && \
+                sleep 3 && \
+                save_apply_interface
+            ) &
         fi
         ;;
     remove)
