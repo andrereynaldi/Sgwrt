@@ -135,7 +135,7 @@ get_system_info() {
     }' /proc/uptime 2>/dev/null || echo "Unknown")
     [ -z "$uptime" ] && uptime="Unknown"
     
-    cpu_temp=$(cat /sys/class/thermal/thermal_zone*/temp 2>/dev/null | awk '{printf "%.1f°C\n", $1/1000; exit}' || echo "N/A")
+    cpu_temp=$(cat /sys/class/thermal/thermal_zone*/temp 2>/dev/null | awk '{printf "%.0f°C\n", $1/1000; exit}' || echo "N/A")
     [ -z "$cpu_temp" ] && cpu_temp="N/A"
     
     mem_info="Unknown"
@@ -174,8 +174,6 @@ get_system_info() {
             fi
         fi
     fi
-    
-    packages=$(opkg list-installed 2>/dev/null | wc -l || echo "N/A")
 }
 
 display_logo() {
@@ -183,7 +181,15 @@ display_logo() {
     for i in {1..65}; do printf "="; done
     printf "\033[0m\n"
     
-    echo -e "\033[1;32m$linux_logo\033[0m"
+    # Center the logo
+    printf "\033[1;32m"
+    echo "$linux_logo" | while IFS= read -r line; do
+        logo_width=$(echo "$line" | wc -c)
+        logo_width=$((logo_width - 1))
+        pad=$(( (65 - logo_width) / 2 ))
+        printf "%*s%s\n" $pad "" "$line"
+    done
+    printf "\033[0m"
 }
 
 display_text_info() {
@@ -201,17 +207,14 @@ display_system_info() {
     
     echo
     printf "\033[1;36m"
-    echo "OS        : $os"
-    echo "Host      : $host"
-    echo "CPU       : $cpu_model"
+    echo "OS        : $os | $host"
+    echo "CPU       : $cpu_model | $cpu_temp"
     echo "Kernel    : $kernel"
-    echo "Temp      : $cpu_temp"
     printf "\033[1;32m"
     echo "RootFS    : $rootfs_info"
     printf "\033[1;36m"
     echo "Memory    : $mem_info"
     echo "Uptime    : $uptime"
-    echo "Packages  : $packages"
     get_active_interface_info
     echo
 }
