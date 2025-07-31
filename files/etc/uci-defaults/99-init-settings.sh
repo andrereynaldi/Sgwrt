@@ -356,6 +356,7 @@ for pkg in luci-app-openclash luci-app-nikki luci-app-passwall; do
                 chmod +x /etc/openclash/core/clash_meta 2>/dev/null
                 chmod +x /etc/openclash/Country.mmdb 2>/dev/null
                 chmod +x /etc/openclash/Geo* 2>/dev/null
+                chmod -R +x /usr/share/openclash 2>/dev/null
                 
                 log_status "INFO" "Patching OpenClash overview..."
                 if [ -f /usr/bin/ocpatch.sh ]; then
