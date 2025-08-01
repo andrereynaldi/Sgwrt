@@ -4,10 +4,6 @@
 
 ---
 
-## XIDZs-WRT Builder
-
-XIDZs-WrtBuilder adalah tools yang mendukung berbagai devices untuk custom build OpenWrt atau ImmortalWrt dengan mudah dan efisien.
-
 ### Devices Support
 - **Orange Pi** - Support untuk berbagai varian Orange Pi
 - **Raspberry Pi** - Kompatibel dengan Raspberry Pi series
