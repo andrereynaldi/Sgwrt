@@ -116,6 +116,7 @@ uci set network.mm.device='/sys/devices/platform/scb/fd500000.pcie/pci0000:00/00
 uci set network.mm.apn='internet' 2>/dev/null
 uci set network.mm.auth='none' 2>/dev/null
 uci set network.mm.iptype='ipv4' 2>/dev/null
+uci set network.mm.force_connection='1' 2>/dev/null
 uci delete network.wan6 2>/dev/null
 uci commit network 2>/dev/null
 log_status "SUCCESS" "Network configuration completed"
@@ -239,7 +240,6 @@ sed -i -e 's/\[ -f \/etc\/banner \] && cat \/etc\/banner/#&/' -e 's/\[ -n \"\$FA
 chmod -R +x /sbin /usr/bin 2>/dev/null
 chmod +x /etc/init.d/vnstat_backup 2>/dev/null
 chmod +x /etc/init.d/issue 2>/dev/null
-chmod +x /usr/lib/ModemManager/connection.d/10-report-down 2>/dev/null
 chmod +x /www/cgi-bin/reset-vnstat.sh /www/vnstati/vnstati.sh 2>/dev/null
 chmod 600 /etc/vnstat.conf 2>/dev/null
 
@@ -255,38 +255,17 @@ log_status "SUCCESS" "Misc settings configured"
 # add auto sinkron jam, Clean Cache, Remove mm tty
 log_status "INFO" "Add Auto Sinkron Jam, Clean Cache, Remove mm tty..."
 sed -i '/exit 0/i #sh /usr/bin/autojam.sh bug.com' /etc/rc.local 2>/dev/null
-sed -i '/exit 0/i #/sbin/free.sh' /etc/rc.local 2>/dev/null
 rm -f /etc/hotplug.d/tty/25-modemmanager-tty 2>/dev/null
-log_status "SUCCESS" "Auto sync, Cache clean, Remove mm tty applied"
+log_status "SUCCESS" "Auto sync, cache settings, remove mm tty applied"
 
-# add rules
-log_status "INFO" "Adding and running rules script..."
-if [ -f /root/rules.sh ]; then
-    chmod +x /root/rules.sh 2>/dev/null
-    /root/rules.sh
-    log_status "SUCCESS" "Rules script executed"
+# add TTL
+log_status "INFO" "Adding and running TTL script..."
+if [ -f /root/indowrt.sh ]; then
+    chmod +x /root/indowrt.sh 2>/dev/null
+    /root/indowrt.sh
+    log_status "SUCCESS" "TTL script executed"
 else
-    log_status "WARNING" "rules.sh not found, skipping Rules configuration"
-fi
-
-# move_safe
-log_status "INFO" "Move safe configuration..."
-if [ -f /root/move_safe.sh ]; then
-    chmod +x /root/move_safe.sh 2>/dev/null
-    /root/move_safe.sh
-    log_status "SUCCESS" "move_safe configuration script executed"
-else
-    log_status "WARNING" "move_safe.sh not found, skipping move_safe configuration"
-fi
-
-# mv_safe
-log_status "INFO" "Mv safe configuration..."
-if [ -f /root/mv_safe.sh ]; then
-    chmod +x /root/mv_safe.sh 2>/dev/null
-    /root/mv_safe.sh
-    log_status "SUCCESS" "mv_safe configuration script executed"
-else
-    log_status "WARNING" "mv_safe.sh not found, skipping mv_safe configuration"
+    log_status "WARNING" "indowrt.sh not found, skipping TTL configuration"
 fi
 
 # nikki-x
@@ -299,24 +278,24 @@ else
     log_status "WARNING" "Nikki-x.sh not found, skipping Nikki configuration"
 fi
 
-# add TTL
-log_status "INFO" "Adding and running TTL script..."
-if [ -f /root/indowrt.sh ]; then
-    chmod +x /root/indowrt.sh 2>/dev/null
-    /root/indowrt.sh
-    log_status "SUCCESS" "TTL script executed"
+# add rules
+log_status "INFO" "Adding and running rules script..."
+if [ -f /root/rules.sh ]; then
+    chmod +x /root/rules.sh 2>/dev/null
+    /root/rules.sh
+    log_status "SUCCESS" "Rules script executed"
 else
-    log_status "WARNING" "indowrt.sh not found, skipping TTL configuration"
+    log_status "WARNING" "rules.sh not found, skipping Rules configuration"
 fi
 
-# add port
-log_status "INFO" "Adding port configuration..."
-if [ -f /root/addport.sh ]; then
-    chmod +x /root/addport.sh 2>/dev/null
-    /root/addport.sh
-    log_status "SUCCESS" "Port configuration script executed"
+# mv_safe
+log_status "INFO" "Mv safe configuration..."
+if [ -f /root/mv_safe.sh ]; then
+    chmod +x /root/mv_safe.sh 2>/dev/null
+    /root/mv_safe.sh
+    log_status "SUCCESS" "mv_safe configuration script executed"
 else
-    log_status "WARNING" "addport.sh not found, skipping port configuration"
+    log_status "WARNING" "mv_safe.sh not found, skipping mv_safe configuration"
 fi
 
 # move jquery.min.js
@@ -392,7 +371,7 @@ for pkg in luci-app-openclash luci-app-nikki luci-app-passwall; do
         case "$pkg" in
             luci-app-openclash)
                 rm -f /etc/config/openclash1 2>/dev/null
-                rm -rf /etc/openclash 2>/dev/null
+                rm -rf /etc/openclash /usr/share/openclash /usr/lib/lua/luci/view/openclash 2>/dev/null
                 sed -i '104s/Enable/Disable/' /etc/config/alpha 2>/dev/null
                 sed -i '167s#.*#<!-- & -->#' /usr/lib/lua/luci/view/themes/argon/header.htm 2>/dev/null
                 sed -i '187s#.*#<!-- & -->#' /usr/lib/lua/luci/view/themes/argon/header.htm 2>/dev/null
@@ -452,7 +431,7 @@ log_status "INFO" "Check log file: $LOG_FILE"
 log_status "INFO" "========================================="
 
 sync
-sleep 5
+sleep 7
 reboot
 
 exit 0
