@@ -70,7 +70,7 @@ proxy-groups:
   - MODEM1
   - MODEM2
   url: http://www.gstatic.com/generate_204
-  interval: '6'
+  interval: '60'
 - name: SERVER-UMUM
   type: select
   disable-udp: false
