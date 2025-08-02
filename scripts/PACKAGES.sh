@@ -52,6 +52,7 @@ packages_custom+=(
     "luci-app-sms-tool-js_|${REPOS[IMMORTALWRT]}/luci"
     "dns2tcp_|${REPOS[IMMORTALWRT]}/packages"
     "luci-theme-argon_|${REPOS[IMMORTALWRT]}/luci"
+    "luci-app-irqbalance_|${REPOS[IMMORTALWRT]}/luci"
     
     "speedtest-cli_|${REPOS[KIDDIN9]}"
     "luci-app-eqosplus_|${REPOS[KIDDIN9]}"
