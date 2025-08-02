@@ -99,7 +99,6 @@ uci set network.mm.device='/sys/devices/platform/scb/fd500000.pcie/pci0000:00/00
 uci set network.mm.apn='internet' 2>/dev/null
 uci set network.mm.auth='none' 2>/dev/null
 uci set network.mm.iptype='ipv4' 2>/dev/null
-uci set network.mm.force_connection='1' 2>/dev/null
 uci delete network.wan6 2>/dev/null
 uci commit network 2>/dev/null
 log_status "SUCCESS" "Network configuration completed"
@@ -223,6 +222,7 @@ sed -i -e 's/\[ -f \/etc\/banner \] && cat \/etc\/banner/#&/' -e 's/\[ -n \"\$FA
 chmod -R +x /sbin /usr/bin 2>/dev/null
 chmod +x /etc/init.d/vnstat_backup 2>/dev/null
 chmod +x /etc/init.d/issue 2>/dev/null
+chmod +x /usr/lib/ModemManager/connection.d/10-report-down 2>/dev/null
 chmod +x /www/cgi-bin/reset-vnstat.sh /www/vnstati/vnstati.sh 2>/dev/null
 chmod 600 /etc/vnstat.conf 2>/dev/null
 chmod +x /root/install2.sh 2>/dev/null
