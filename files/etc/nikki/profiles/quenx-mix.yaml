@@ -19,21 +19,21 @@ proxy-providers:
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '180'
+      interval: '60'
   MODEM2:
     type: file
     path: ./proxy_provider/modem2.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '180'
+      interval: '60'
   DIRECTMODEM:
     type: file
     path: ./proxy_provider/directmodem.yaml
     health-check:
       enable: true
       url: http://www.gstatic.com/generate_204
-      interval: '180'
+      interval: '60'
 proxy-groups:
 - name: AUTO-ID-MIX
   type: fallback
@@ -54,13 +54,11 @@ proxy-groups:
   interval: '180'
 - name: MODEM1
   type: select
-  interface-name: usb0
   disable-udp: false
   use:
   - MODEM1
 - name: MODEM2
   type: select
-  interface-name: eth1
   disable-udp: false
   use:
   - MODEM2
@@ -72,7 +70,7 @@ proxy-groups:
   - MODEM1
   - MODEM2
   url: http://www.gstatic.com/generate_204
-  interval: '180'
+  interval: '60'
 - name: SERVER-UMUM
   type: select
   disable-udp: false
