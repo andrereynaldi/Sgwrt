@@ -43,7 +43,7 @@
   --bg-blur:blur(10px);
 }
 
-/* TEMA BARU 1: GRADIENT BLUE */
+/* TEMA GRADIENT BLUE */
 [data-theme="gradient"]{
   --bg:linear-gradient(135deg, #667eea 0%, #764ba2 100%);--bg2:rgba(255,255,255,.9);--bg3:rgba(255,255,255,.95);
   --t1:#1a202c;--t2:#4a5568;--t3:#718096;--b1:#e2e8f0;--b2:rgba(255,255,255,.15);
@@ -52,7 +52,7 @@
   --bg-blur:blur(15px);
 }
 
-/* TEMA BARU 2: CYBER BLUE - CYBERPUNK STYLE */
+/* TEMA CYBERPUNK STYLE */
 [data-theme="cyber"]{
   --bg:linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 30%, #16213e 70%, #0f0f23 100%);
   --bg2:rgba(0,150,255,.12);--bg3:rgba(0,200,255,.15);
@@ -60,6 +60,15 @@
   --sh:0 0 15px rgba(0,180,255,.4);--shl:0 0 25px rgba(0,180,255,.6);--shx:0 0 35px rgba(0,180,255,.8);
   --p:#00b4ff;--s:#0099ff;--a:#0080ff;--g:#00ffaa;--w:#ffaa00;--d:#ff4466;
   --bg-blur:blur(20px);
+}
+
+/* TEMA ULTRA GLASSMORPHISM */
+[data-theme="transparent"]{
+  --bg:transparent;--bg2:rgba(255,255,255,.08);--bg3:rgba(255,255,255,.12);
+  --t1:#ffffff;--t2:#e2e8f0;--t3:#cbd5e0;--b1:rgba(255,255,255,.2);--b2:rgba(255,255,255,.05);
+  --sh:0 8px 32px rgba(0,0,0,.15);--shl:0 12px 40px rgba(0,0,0,.2);--shx:0 16px 48px rgba(0,0,0,.25);
+  --p:#667eea;--s:#764ba2;--a:#f093fb;--g:#10b981;--w:#f59e0b;--d:#ef4444;
+  --bg-blur:blur(25px);
 }
 
 @media(prefers-color-scheme:dark){:root:not([data-theme]){
@@ -86,12 +95,41 @@ body::after{
   z-index:-1;opacity:.6;
 }
 
-/* CYBER THEME SPECIAL BACKGROUND EFFECTS */
+/* CYBER THEME BACKGROUND EFFECTS */
 [data-theme="cyber"] body::after{
   background:radial-gradient(circle at 20% 80%, rgba(0,180,255,.4) 0%, transparent 60%),
              radial-gradient(circle at 80% 20%, rgba(0,120,255,.3) 0%, transparent 60%),
              radial-gradient(circle at 40% 40%, rgba(0,200,255,.3) 0%, transparent 50%),
              radial-gradient(circle at 60% 10%, rgba(0,150,255,.2) 0%, transparent 70%);
+}
+
+/* TRANSPARENT THEME BACKGROUND */
+[data-theme="transparent"] body{
+  background:linear-gradient(135deg, 
+    rgba(102,126,234,.15) 0%, 
+    rgba(118,75,162,.12) 25%, 
+    rgba(240,147,251,.10) 50%,
+    rgba(16,185,129,.08) 75%,
+    rgba(102,126,234,.15) 100%);
+}
+
+[data-theme="transparent"] body::before{
+  background:linear-gradient(45deg,
+    rgba(255,255,255,.02) 0%,
+    rgba(102,126,234,.05) 25%,
+    rgba(118,75,162,.03) 50%,
+    rgba(240,147,251,.04) 75%,
+    rgba(255,255,255,.02) 100%);
+  filter:blur(30px);opacity:.8;
+}
+
+[data-theme="transparent"] body::after{
+  background:radial-gradient(circle at 25% 75%, rgba(102,126,234,.15) 0%, transparent 60%),
+             radial-gradient(circle at 75% 25%, rgba(240,147,251,.12) 0%, transparent 60%),
+             radial-gradient(circle at 50% 50%, rgba(118,75,162,.10) 0%, transparent 50%),
+             radial-gradient(circle at 10% 10%, rgba(16,185,129,.08) 0%, transparent 70%),
+             radial-gradient(circle at 90% 90%, rgba(245,158,11,.06) 0%, transparent 80%);
+  opacity:.9;
 }
 
 .container{max-width:1400px;margin:0 auto;padding:12px;position:relative;z-index:1}
@@ -129,7 +167,7 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
 .toast.success{border-color:var(--g);color:var(--g)}
 .toast.error{border-color:var(--d);color:var(--d)}
 
-/* HEADER YANG DIPERBESAR DENGAN RESPONSIVE */
+/* HEADER */
 .header{
   text-align:center;margin-bottom:12px;padding:8px 12px;background:var(--bg2);
   border-radius:var(--radius-md);box-shadow:var(--sh);border:1px solid var(--b2);
@@ -142,7 +180,7 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
 }
 .header .subtitle{font-size:.875rem;color:var(--t2)}
 
-/* SECTION TITLE DIPERBESAR */
+/* SECTION TITLE */
 .section{
   background:var(--bg2);border-radius:var(--radius-lg);padding:16px;
   margin-bottom:16px;box-shadow:var(--shx);border:1px solid var(--b2);
@@ -176,7 +214,7 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
 .grid-info{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
 .grid-charts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
 
-/* GRID-CHARTS2 - 3 KOLOM UNTUK SEMUA DEVICE - 6 CHART TOTAL */
+/* GRID-CHARTS2 - 3 KOLOM */
 .grid-charts2{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-bottom:8px}
 
 .grid-btns{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
@@ -189,12 +227,12 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
   backdrop-filter:blur(15px);
 }
 
-/* CHART KHUSUS UNTUK GRID-CHARTS2 DIPERKECIL */
+/* CHART UNTUK GRID-CHARTS2 */
 .grid-charts2 .chart{
   min-height:60px;padding:3px;
 }
 
-/* INFO CARDS DIPERBESAR */
+/* INFO CARDS */
 .info{
   background:var(--bg3);border-radius:var(--radius-sm);padding:10px;
   box-shadow:var(--sh);border:1px solid var(--b1);min-height:80px;
@@ -307,7 +345,7 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
       <div class="top-ctrl">
         <button class="btn" id="themeBtn"><span id="themeText">Light</span></button>
         <button class="btn stats" id="statsBtn">Statistics</button>
-        <button class="btn rst" id="resetBtn">Reset</button>
+        <button class="btn rst" id="resetBtn">Reset Db</button>
       </div>
 
       <div class="toast" id="toast">
@@ -316,11 +354,11 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
 
       <header class="header">
         <h1>Network Monitor</h1>
-        <p class="subtitle">Real-time Performance Dashboard</p>
+        <p class="subtitle">Real-time Dashboard</p>
       </header>
 
       <section class="section">
-        <h2 class="title">Network Performance Metrics</h2>
+        <h2 class="title">Network Monitoring Devices</h2>
         
         <div class="grid-info">
           <div class="info">
@@ -337,7 +375,7 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
           </div>
         </div>
         
-        <!-- GRID-CHARTS DENGAN 3 CHART: ETH1, WWAN0, USB0 -->
+        <!-- ETH1, WWAN0, USB0 -->
         <div class="grid-charts">
           <div class="chart">
             <div data-netdata="net.eth1" data-title="MODEM" data-chart-library="gauge" data-after="-100" data-width="100%" data-points="720" data-gauge-generate-gradient="[0,5,10,60,100]" data-gauge-gradient-percent-color-0="#fa709a" data-gauge-gradient-percent-color-5="#fa709a" data-gauge-gradient-percent-color-10="#f093fb" data-gauge-gradient-percent-color-60="#4facfe" data-gauge-gradient-percent-color-100="#43e97b" data-colors="#667eea"></div>
@@ -350,7 +388,7 @@ body.stats-open .main-content{filter:blur(4px);transition:filter .3s}
           </div>
         </div>
 
-        <!-- GRID-CHARTS2 DENGAN SUSUNAN BARU: RECEIVED-LAN-SENT / CPU-RAM-LOAD -->
+        <!-- RECEIVED-LAN-SENT / CPU-RAM-LOAD -->
         <div class="grid-charts2">
           <!-- BARIS PERTAMA: received - br-lan - sent -->
           <div class="chart">
@@ -422,9 +460,9 @@ const el = {
   chartButtons: document.querySelectorAll('.chart-btn')
 };
 
-// Theme System - UPDATED: Removed sunset & forest, added gradient & cyber
-const themes = ['light', 'dark', 'ocean', 'purple', 'gradient', 'cyber'];
-const themeNames = ['Light', 'Dark', 'Ocean', 'Purple', 'Gradient', 'Cyber'];
+// Theme System
+const themes = ['light', 'dark', 'ocean', 'purple', 'gradient', 'cyber', 'transparent'];
+const themeNames = ['Light', 'Dark', 'Ocean', 'Purple', 'Gradient', 'Cyber', 'Glass'];
 let currentTheme = localStorage.getItem('selectedTheme') || 'light';
 
 function applyTheme() {
