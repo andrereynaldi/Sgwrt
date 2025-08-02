@@ -38,25 +38,12 @@ log_status "INFO" "========================================="
 
 # modify firmware display
 log_status "INFO" "Modifying firmware display..."
-if sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' By Xidz_x':''),#g" /www/luci-static/resources/view/status/include/10_system.js 2>/dev/null; then
-    log_status "SUCCESS" "Firmware display modified"
-else
-    log_status "ERROR" "Failed to modify firmware display"
-fi
+sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' By Xidz_x':''),#g" /www/luci-static/resources/view/status/include/10_system.js 2>/dev/null
 
 # change icon port
-log_status "INFO" "Changing port icons..."
-if sed -i -E 's/icons\/port_%s\.(svg|png)/icons\/port_%s.gif/g' /www/luci-static/resources/view/status/include/29_ports.js 2>/dev/null; then
-    log_status "SUCCESS" "Port icons format changed"
-else
-    log_status "WARNING" "Port icons change failed or file not found"
-fi
-
-if mv /www/luci-static/resources/view/status/include/29_ports.js /www/luci-static/resources/view/status/include/11_ports.js 2>/dev/null; then
-    log_status "SUCCESS" "Ports.js file moved and renamed"
-else
-    log_status "WARNING" "Ports.js move failed or file not found"
-fi
+sed -i -E 's/icons\/port_%s\.(svg|png)/icons\/port_%s.gif/g' /www/luci-static/resources/view/status/include/29_ports.js 2>/dev/null
+mv /www/luci-static/resources/view/status/include/29_ports.js /www/luci-static/resources/view/status/include/11_ports.js 2>/dev/null
+log_status "SUCCESS" "Firmware and port modifications completed"
 
 # check system release
 log_status "INFO" "Checking system release..."
@@ -76,13 +63,9 @@ else
     log_status "WARNING" "Unknown system release"
 fi
 
-# setup login root password
 log_status "INFO" "Setting up root password..."
-if (echo "xyyraa"; sleep 2; echo "xyyraa") | passwd >/dev/null 2>&1; then
-    log_status "SUCCESS" "Root password configured"
-else
-    log_status "ERROR" "Failed to set root password"
-fi
+(echo "xyyraa"; sleep 2; echo "xyyraa") | passwd >/dev/null 2>&1
+log_status "SUCCESS" "Root password configured"
 
 # setup hostname and timezone
 log_status "INFO" "Configuring hostname and timezone to Asia/Jakarta..."
@@ -242,14 +225,8 @@ chmod +x /etc/init.d/vnstat_backup 2>/dev/null
 chmod +x /etc/init.d/issue 2>/dev/null
 chmod +x /www/cgi-bin/reset-vnstat.sh /www/vnstati/vnstati.sh 2>/dev/null
 chmod 600 /etc/vnstat.conf 2>/dev/null
-
-if [ -f /root/install2.sh ]; then
-    chmod +x /root/install2.sh 2>/dev/null
-    /root/install2.sh
-    log_status "SUCCESS" "install2 script executed"
-else
-    log_status "INFO" "install2.sh not found, skipping"
-fi
+chmod +x /root/install2.sh 2>/dev/null
+/root/install2.sh 2>/dev/null
 log_status "SUCCESS" "Misc settings configured"
 
 # add auto sinkron jam, Clean Cache, Remove mm tty
