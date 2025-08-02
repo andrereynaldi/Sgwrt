@@ -54,13 +54,11 @@ proxy-groups:
   interval: '180'
 - name: MODEM1
   type: select
-  interface-name: usb0
   disable-udp: false
   use:
   - MODEM1
 - name: MODEM2
   type: select
-  interface-name: eth1
   disable-udp: false
   use:
   - MODEM2
