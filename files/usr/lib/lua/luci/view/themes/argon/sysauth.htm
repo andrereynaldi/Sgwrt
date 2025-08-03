@@ -9,8 +9,64 @@
       66.66% { color: rgb(0, 255, 0); }
       75% { color: rgb(0, 192, 255); }
       83.33% { color: rgb(0, 128, 255); }
-      91.66% { color: rgb(128, 0,255); }}h2, #jam, #tanggal-lengkap {
-      animation: rainbow 4s linear infinite;
+      91.66% { color: rgb(128, 0,255); }}
+
+    /* Animasi fade in dan slide up untuk elemen text */
+    @keyframes fadeInUp {
+      0% { 
+        opacity: 0; 
+        transform: translateY(30px); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+    }
+
+    /* Animasi untuk text title */
+    @keyframes titleAnimation {
+      0% { 
+        opacity: 0; 
+        transform: translateY(-20px) scale(0.9); 
+      }
+      100% { 
+        opacity: 1; 
+        transform: translateY(0) scale(1); 
+      }
+    }
+
+    /* Styling untuk elemen yang akan dianimasi */
+    h2 {
+      animation: rainbow 4s linear infinite, titleAnimation 1s ease-out;
+      animation-delay: 0s, 0s;
+    }
+
+    #jam, #tanggal-lengkap {
+      animation: rainbow 4s linear infinite, fadeInUp 0.8s ease-out;
+      animation-delay: 0s, 0.3s;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    .input_group:nth-child(3) {
+      animation: fadeInUp 0.8s ease-out;
+      animation-delay: 0.6s;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    .input_group:nth-child(4) {
+      animation: fadeInUp 0.8s ease-out;
+      animation-delay: 0.9s;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    .button_group {
+      animation: fadeInUp 0.8s ease-out;
+      animation-delay: 1.2s;
+      opacity: 0;
+      animation-fill-mode: forwards;
     }
 
     .alert-message {
@@ -29,9 +85,11 @@
     .input_group input.input_text {
       border-bottom: 2px solid rgba(255, 255, 255,0.3) !important;
       box-shadow:0 1px 3px rgba(255, 255,255, 0.1) !important;
-      transition: all 0.3s ease !important;}
+      transition: all 0.3s ease !important;
+    }
 
-    .input_group input.input_text:focus {border-bottom: 2px solid rgba(255, 255,255, 0.5) !important;
+    .input_group input.input_text:focus {
+      border-bottom: 2px solid rgba(255, 255,255, 0.5) !important;
       box-shadow: 0 2px 6px rgba(255, 255, 255, 0.2) !important;
       outline: none !important;
     }
@@ -42,9 +100,19 @@
 
     @keyframes slideUp {
       0% { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-20px); }}
+      100% { opacity: 0; transform: translateY(-20px); }
+    }
 
     .fade-out {animation: slideUp 0.3s ease-out forwards;
+    }
+
+    /* Animasi hover untuk input fields */
+    .input_group {
+      transition: transform 0.2s ease;
+    }
+
+    .input_group:hover {
+      transform: translateY(-2px);
     }
   </style>
 </head><body><form method="post" action="<%=pcdata(FULL_REQUEST_URI)%>"><%- if fuser then %>
@@ -82,7 +150,12 @@
           alertElement.classList.add('fade-out');
           setTimeout(() => alertElement.style.display ='none',300);
         },3000);}
-      const passwordInput = document.getElementsByName('luci_password')[0];if (passwordInput) passwordInput.focus();
+      
+      // Set focus ke password input setelah animasi selesai
+      setTimeout(() => {
+        const passwordInput = document.getElementsByName('luci_password')[0];
+        if (passwordInput) passwordInput.focus();
+      }, 1500);
     });</script><%
   local uci = require "luci.model.uci".cursor()
   local fs = require "nixio.fs"
