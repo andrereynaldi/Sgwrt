@@ -17,20 +17,12 @@ EXCLUDED=""
 
 # Core system + Web Server + LuCI
 PACKAGES+=" libc bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
-curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus luci luci-base \
-luci-mod-admin-full luci-lib-ip luci-compat luci-ssl"
+curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus \
+luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base"
 
-# USB + LAN Networking Drivers And Modem Tools
-PACKAGES+=" kmod-usb-net-rtl8152"
-PACKAGES+=" kmod-mii kmod-usb-net kmod-usb-net-rndis kmod-usb-net-cdc-ether \
-usbutils kmod-usb2 \
-kmod-usb3 kmod-nls-utf8"
-
-# Modem Management Tools
-# PACKAGES+=" modeminfo luci-app-modeminfo atinout modemband luci-app-modemband sms-tool luci-app-sms-tool-js picocom minicom"
-
-# ModemInfo Serial Support
-# PACKAGES+=" modeminfo-serial-dell modeminfo-serial-fibocom modeminfo-serial-sierra modeminfo-serial-tw modeminfo-serial-xmm"
+# USB + LAN Networking Drivers And Tethering Tools
+PACKAGES+=" kmod-usb-net  kmod-mii  kmod-nls-utf8 kmod-usb2 kmod-usb3 \
+kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-rtl8152 usbutils"
 
 # VPN Tunnel
 OPENCLASH="coreutils-nohup bash ca-certificates ipset ip-full libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy luci-app-openclash"
