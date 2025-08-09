@@ -185,58 +185,7 @@ jobs:
           name: ${{ steps.setupenv.outputs.release_name }}
           prerelease: ${{ github.ref_name == 'dev' }}
           body: |
-            ## XIDZs-WRT INFORMATION ##
-            - Default IP: 192.168.1.1
-            - Default username: root
-            - Default password: xyyraa
-            - Default WIFI: XIDZs-WRT | XIDZs-WRT_5G
-            - Default WIFI Password: XIDZs2025
-            - Disarankan Reboot Devices Setelah Succes Booting
-            - All Version Kernel Wifi ON Devices Tertentu
-            ## Supported Devices ##
-            ## Amlogic Series
-            - **S905**: MXQ-Pro+, Beelink-Mini
-            - **S905D**: Phicomm-N1
-            - **S905L**: B860AV2, Mibox-4
-            - **S905W**: TX3-Mini, X96-Mini
-            - **S905X**: B860H, HG680P (with MODSDCARD variants)
-            - **S905LB**: Q96-mini
-            - **S905L2**: M301A, MGV-M301A
-            - **S905L3**: HG680-LC
-            - **S905L3A**: B863AV3
-            - **S905L3B**: MGV2000
-            - **S912**: Nexbox-A1-A95X, Nexbox-A95X-A2
-            - **S905X2**: B860Hv5, HG680-FJ, X96Max variants
-            - **S905X3**: HK1-Vontar-X3, X96Air variants, X96Max+ variants
-            - **S905X4**: Advan AT01, Akari AX810
-            - **S922X**: GT-King-Pro
-            
-            ## Rockchip Series
-            - **RK3318**: RK3318-BOX
-            - **RK3328**: Firefly-RK3328
-                        
-            ## FEATURES
-            - Tema Alpha ⨯ Tema Argon ⨯ Tema Material
-            - Amlogic Service ⨯ Droidnet
-            - 3ginfo-Lite ⨯ Modeminfo ⨯ IP Information
-            - FIX TTL ⨯ Tailscale
-            - Eqosplus ⨯ Mactodong
-            - GPIO LED Support
-            - MOD-SDCARD Support
-            - Internet Detector ⨯ Connection Monitor
-            - Support Modem Rakitan ⨯ Auto Reconnect
-            - Auto Time Sync ⨯ File Manager
-            - Configurasi Openclash ⨯ Nikki ⨯ Passwall
-            ## TUNNEL OPTIONS
-            - OpenClash
-            - OpenClash + Nikki
-            - OpenClash + Nikki + Passwall
-            - No Tunnel         
-            ## KERNEL STABLE VERSION
-            - Kernel v5.15 ⨯ WIFI ON
-            - Kernel v6.1 ⨯ WIFI ON
-            - Kernel v6.6 ⨯ WIFI ON
-            - Kernel v6.12 ⨯ WIFI ON
+            # Firmware #
 
   build-firmware:
     name: Build ${{ matrix.target }} Firmware
