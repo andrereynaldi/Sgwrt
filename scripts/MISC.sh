@@ -63,13 +63,8 @@ configure_amlogic_permissions() {
     "OPHUB" | "ULO")
         log "INFO" "Setting up Amlogic file permissions"
         local netifd_files=(
-            "/lib/netifd/proto/3g.sh"
             "/lib/netifd/proto/dhcp.sh"
             "/lib/netifd/proto/dhcpv6.sh"
-            "/lib/netifd/proto/ncm.sh"
-            "/lib/netifd/proto/atc.sh"
-            "/lib/netifd/proto/wwan.sh"
-            "/lib/netifd/wireless/mac80211.sh"
             "/lib/netifd/dhcp-get-server.sh"
             "/lib/netifd/dhcp.script"
             "/lib/netifd/dhcpv6.script"
@@ -77,7 +72,6 @@ configure_amlogic_permissions() {
             "/lib/netifd/netifd-proto.sh"
             "/lib/netifd/netifd-wireless.sh"
             "/lib/netifd/utils.sh"
-            "/lib/wifi/mac80211.sh"
         )
         
         for file in "${netifd_files[@]}"; do
