@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Setup logging
-LOG_FILE="/root/setup-xidzswrt.log"
+LOG_FILE="/root/setup.log"
 exec > "$LOG_FILE" 2>&1
 
 # logging dengan status
@@ -31,14 +31,14 @@ log_status() {
 
 # header log
 log_status "INFO" "========================================="
-log_status "INFO" "XIDZs-WRT Setup Script Started"
-log_status "INFO" "Script Setup By Xidz-x | Fidz"
+log_status "INFO" "Setup Script Started"
+log_status "INFO" "Script Setup"
 log_status "INFO" "Installed Time: $(date '+%A, %d %B %Y %T')"
 log_status "INFO" "========================================="
 
 # modify firmware display
 log_status "INFO" "Modifying firmware display..."
-sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' By Xidz_x':''),#g" /www/luci-static/resources/view/status/include/10_system.js 2>/dev/null
+sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':''),#g" /www/luci-static/resources/view/status/include/10_system.js 2>/dev/null
 
 # change icon port
 sed -i -E 's/icons\/port_%s\.(svg|png)/icons\/port_%s.gif/g' /www/luci-static/resources/view/status/include/29_ports.js 2>/dev/null
@@ -64,18 +64,19 @@ else
 fi
 
 log_status "INFO" "Setting up root password..."
-(echo "xyyraa"; sleep 2; echo "xyyraa") | passwd >/dev/null 2>&1
+(echo "123456879"; sleep 2; echo "123456879") | passwd >/dev/null 2>&1
 log_status "SUCCESS" "Root password configured"
 
 # setup hostname and timezone
 log_status "INFO" "Configuring hostname and timezone to Asia/Jakarta..."
-uci set system.@system[0].hostname='XIDZs-WRT' 2>/dev/null
+uci set system.@system[0].hostname='SOGEKING' 2>/dev/null
 uci set system.@system[0].timezone='WIB-7' 2>/dev/null
 uci set system.@system[0].zonename='Asia/Jakarta' 2>/dev/null
 uci delete system.ntp.server 2>/dev/null
-uci add_list system.ntp.server='pool.ntp.org' 2>/dev/null
-uci add_list system.ntp.server='id.pool.ntp.org' 2>/dev/null
-uci add_list system.ntp.server='time.google.com' 2>/dev/null
+uci add_list system.ntp.server='0.id.pool.ntp.org' 2>/dev/null
+uci add_list system.ntp.server='1.id.pool.ntp.org' 2>/dev/null
+uci add_list system.ntp.server='2.id.pool.ntp.org' 2>/dev/null
+uci add_list system.ntp.server='3.id.pool.ntp.org' 2>/dev/null
 uci commit system 2>/dev/null
 log_status "SUCCESS" "System configuration completed"
 
@@ -90,15 +91,6 @@ log_status "INFO" "Configuring WAN and LAN interfaces..."
 uci set network.tethering=interface 2>/dev/null
 uci set network.tethering.proto='dhcp' 2>/dev/null
 uci set network.tethering.device='usb0' 2>/dev/null
-uci set network.modem=interface 2>/dev/null
-uci set network.modem.proto='dhcp' 2>/dev/null
-uci set network.modem.device='eth1' 2>/dev/null
-uci set network.mm=interface 2>/dev/null
-uci set network.mm.proto='modemmanager' 2>/dev/null
-uci set network.mm.device='/sys/devices/platform/scb/fd500000.pcie/pci0000:00/0000:00:00.0/0000:01:00.0/usb2/2-1' 2>/dev/null
-uci set network.mm.apn='internet' 2>/dev/null
-uci set network.mm.auth='none' 2>/dev/null
-uci set network.mm.iptype='ipv4' 2>/dev/null
 uci delete network.wan6 2>/dev/null
 uci commit network 2>/dev/null
 log_status "SUCCESS" "Network configuration completed"
@@ -115,15 +107,6 @@ uci delete dhcp.lan.ra 2>/dev/null
 uci delete dhcp.lan.ndp 2>/dev/null
 uci commit dhcp 2>/dev/null
 log_status "SUCCESS" "IPv6 disabled on LAN"
-
-# configure wireless device
-log_status "INFO" "Configuring wireless devices..."
-uci set wireless.@wifi-device[0].disabled='0' 2>/dev/null
-uci set wireless.@wifi-iface[0].disabled='0' 2>/dev/null
-uci set wireless.@wifi-iface[0].mode='ap' 2>/dev/null
-uci set wireless.@wifi-iface[0].encryption='psk2' 2>/dev/null
-uci set wireless.@wifi-iface[0].key='XIDZs2025' 2>/dev/null
-uci set wireless.@wifi-device[0].country='ID' 2>/dev/null
 
 # check for Raspberry Pi Devices
 if grep -q "Raspberry Pi 4\|Raspberry Pi 3" /proc/cpuinfo 2>/dev/null; then
@@ -220,11 +203,7 @@ fi
 log_status "INFO" "Setting up misc settings and permissions..."
 sed -i -e 's/\[ -f \/etc\/banner \] && cat \/etc\/banner/#&/' -e 's/\[ -n \"\$FAILSAFE\" \] && cat \/etc\/banner.failsafe/& || \/usr\/bin\/foundx/' /etc/profile 2>/dev/null
 chmod -R +x /sbin /usr/bin 2>/dev/null
-chmod +x /etc/init.d/vnstat_backup 2>/dev/null
 chmod +x /etc/init.d/issue 2>/dev/null
-chmod +x /usr/lib/ModemManager/connection.d/10-report-down 2>/dev/null
-chmod +x /www/cgi-bin/reset-vnstat.sh /www/vnstati/vnstati.sh 2>/dev/null
-chmod 600 /etc/vnstat.conf 2>/dev/null
 chmod +x /root/install2.sh 2>/dev/null
 /root/install2.sh 2>/dev/null
 log_status "SUCCESS" "Misc settings configured"
@@ -232,7 +211,6 @@ log_status "SUCCESS" "Misc settings configured"
 # add auto sinkron jam, Clean Cache, Remove mm tty
 log_status "INFO" "Add Auto Sinkron Jam, Clean Cache, Remove mm tty..."
 sed -i '/exit 0/i #sh /usr/bin/autojam.sh bug.com' /etc/rc.local 2>/dev/null
-rm -f /etc/hotplug.d/tty/25-modemmanager-tty 2>/dev/null
 log_status "SUCCESS" "Auto sync, cache settings, remove mm tty applied"
 
 # add TTL
@@ -274,33 +252,6 @@ if [ -f /root/mv_safe.sh ]; then
 else
     log_status "WARNING" "mv_safe.sh not found, skipping mv_safe configuration"
 fi
-
-# move jquery.min.js
-log_status "INFO" "Moving jQuery library..."
-mv /usr/share/netdata/web/lib/jquery-3.6.0.min.js /usr/share/netdata/web/lib/jquery-2.2.4.min.js 2>/dev/null
-log_status "SUCCESS" "jQuery library version changed"
-
-# create directory vnstat
-log_status "INFO" "Creating VnStat directory..."
-mkdir -p /etc/vnstat 2>/dev/null
-log_status "SUCCESS" "VnStat directory created"
-
-# restart netdata and vnstat
-log_status "INFO" "Restarting Netdata and VnStat services..."
-/etc/init.d/netdata restart >/dev/null 2>&1
-/etc/init.d/vnstat restart >/dev/null 2>&1
-log_status "SUCCESS" "Services restarted"
-
-# run vnstati.sh
-log_status "INFO" "Running VnStati script..."
-/www/vnstati/vnstati.sh >/dev/null 2>&1
-log_status "SUCCESS" "VnStati script executed"
-
-# setup enable services
-log_status "INFO" "Enable Services.."
-/etc/init.d/vnstat_backup enable >/dev/null 2>&1
-/etc/init.d/issue enable >/dev/null 2>&1
-log_status "SUCCESS" "Services enabled"
 
 # setup tunnel installed
 log_status "INFO" "Checking for tunnel applications..."
@@ -403,7 +354,7 @@ log_status "SUCCESS" "All setup completed successfully"
 rm -rf /etc/uci-defaults/$(basename "$0") 2>/dev/null
 
 log_status "INFO" "========================================="
-log_status "INFO" "XIDZs-WRT Setup Script Finished"
+log_status "INFO" "Setup Script Finished"
 log_status "INFO" "Check log file: $LOG_FILE"
 log_status "INFO" "========================================="
 
