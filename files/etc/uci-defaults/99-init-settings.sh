@@ -136,7 +136,6 @@ if iw dev 2>/dev/null | grep -q Interface; then
         fi
         if ! grep -q "wifi up" /etc/crontabs/root 2>/dev/null; then
             echo "# remove if you dont use wireless" >> /etc/crontabs/root 2>/dev/null
-            echo "0 */12 * * * wifi down && sleep 5 && wifi up" >> /etc/crontabs/root 2>/dev/null
             /etc/init.d/cron restart >/dev/null 2>&1
         fi
     fi
