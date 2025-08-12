@@ -38,7 +38,7 @@ log_status "INFO" "========================================="
 
 # modify firmware display
 log_status "INFO" "Modifying firmware display..."
-sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':''),#g" /www/luci-static/resources/view/status/include/10_system.js 2>/dev/null
+sed -i "s#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+' / ':'')+(luciversion||''),#_('Firmware Version'),(L.isObject(boardinfo.release)?boardinfo.release.description+':''),#g" /www/luci-static/resources/view/status/include/10_system.js 2>/dev/null
 
 # change icon port
 sed -i -E 's/icons\/port_%s\.(svg|png)/icons\/port_%s.gif/g' /www/luci-static/resources/view/status/include/29_ports.js 2>/dev/null
