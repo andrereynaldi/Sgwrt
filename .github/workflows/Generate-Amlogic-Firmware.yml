@@ -370,7 +370,7 @@ jobs:
               ;;
             "Amlogic s905x HG680P")
               TARGET_BUILD="s905x"
-              KERNEL="5.15.y_6.1.y_6.6.y_6.12.y"
+              KERNEL="6.6.y"
               echo "TARGET_BUILD=$TARGET_BUILD" >> $GITHUB_ENV
               echo "KERNEL=$KERNEL" >> $GITHUB_ENV
               ;;
