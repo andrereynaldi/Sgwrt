@@ -1,0 +1,16 @@
+{
+	"model": {
+		"id": "amlogic,p212",
+		"name": "Amlogic Meson GXL (S905X) P212 Development Board"
+	},
+	"network": {
+		"lan": {
+			"ports": ["eth0","eth1"],
+			"protocol": "static"
+		},
+		"wan": {
+			"device": "usb0",
+			"protocol": "dhcp"
+		}
+	}
+}
