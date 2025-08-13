@@ -82,73 +82,10 @@ uci set luci.@core[0].lang='en' 2>/dev/null
 uci commit luci 2>/dev/null
 log_status "SUCCESS" "Language set to English"
 
-# configure wan and lan
-log_status "INFO" "Configuring WAN and LAN interfaces..."
-uci set network.tethering=interface 2>/dev/null
-uci set network.tethering.proto='dhcp' 2>/dev/null
-uci set network.tethering.device='usb0' 2>/dev/null
-uci delete network.wan6 2>/dev/null
-uci commit network 2>/dev/null
-log_status "SUCCESS" "Network configuration completed"
-
 log_status "INFO" "Configuring firewall..."
-uci set firewall.@zone[1].network='tethering modem mm' 2>/dev/null
+uci set firewall.@zone[1].network='tethering' 2>/dev/null
 uci commit firewall 2>/dev/null
 log_status "SUCCESS" "Firewall configuration completed"
-
-# disable ipv6 lan
-log_status "INFO" "Disabling IPv6 on LAN..."
-uci delete dhcp.lan.dhcpv6 2>/dev/null
-uci delete dhcp.lan.ra 2>/dev/null
-uci delete dhcp.lan.ndp 2>/dev/null
-uci commit dhcp 2>/dev/null
-log_status "SUCCESS" "IPv6 disabled on LAN"
-
-# check for Raspberry Pi Devices
-if grep -q "Raspberry Pi 4\|Raspberry Pi 3" /proc/cpuinfo 2>/dev/null; then
-    log_status "INFO" "Raspberry Pi 3/4 detected, configuring 5GHz WiFi..."
-    uci set wireless.@wifi-iface[0].ssid='XIDZs-WRT_5G' 2>/dev/null
-    uci set wireless.@wifi-device[0].channel='149' 2>/dev/null
-    uci set wireless.@wifi-device[0].htmode='VHT80' 2>/dev/null
-else
-    uci set wireless.@wifi-iface[0].ssid='XIDZs-WRT' 2>/dev/null
-    uci set wireless.@wifi-device[0].channel='1' 2>/dev/null
-    uci set wireless.@wifi-device[0].htmode='HT20' 2>/dev/null
-    log_status "INFO" "Standard WiFi configuration applied"
-fi
-
-uci commit wireless 2>/dev/null
-wifi reload >/dev/null 2>&1
-wifi up >/dev/null 2>&1
-log_status "SUCCESS" "Wireless configuration completed"
-
-# check wireless interface
-if iw dev 2>/dev/null | grep -q Interface; then
-    log_status "SUCCESS" "Wireless interface detected"
-    if grep -q "Raspberry Pi 4\|Raspberry Pi 3" /proc/cpuinfo 2>/dev/null; then
-        if ! grep -q "wifi up" /etc/rc.local 2>/dev/null; then
-            sed -i '/exit 0/i # remove if you dont use wireless' /etc/rc.local 2>/dev/null
-            sed -i '/exit 0/i sleep 10 && wifi up' /etc/rc.local 2>/dev/null
-        fi
-        if ! grep -q "wifi up" /etc/crontabs/root 2>/dev/null; then
-            echo "# remove if you dont use wireless" >> /etc/crontabs/root 2>/dev/null
-            /etc/init.d/cron restart >/dev/null 2>&1
-        fi
-    fi
-else
-    log_status "WARNING" "No wireless device detected"
-fi
-
-# remove huawei me909s and dw5821e usb-modeswitch
-log_status "INFO" "Removing Huawei ME909S and DW5821E USB modeswitch entries..."
-sed -i -e '/12d1:15c1/,+5d' -e '/413c:81d7/,+5d' /etc/usb-mode.json 2>/dev/null
-log_status "SUCCESS" "USB modeswitch entries removed"
-
-# disable xmm-modem
-log_status "INFO" "Disabling XMM-Modem using UCI"
-uci set xmm-modem.@xmm-modem[0].enable='0' 2>/dev/null
-uci commit xmm-modem 2>/dev/null
-log_status "SUCCESS" "XMM-Modem disabled"
 
 # disable opkg signature check
 log_status "INFO" "Disabling OPKG signature check..."
