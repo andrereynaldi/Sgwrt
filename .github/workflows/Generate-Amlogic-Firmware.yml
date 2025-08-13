@@ -18,7 +18,7 @@ on:
       target:
         description: "Select device board"
         required: false
-        default: "all-device"
+        default: "Amlogic s905x HG680P"
         type: choice
         options:
           - all-device
@@ -46,6 +46,20 @@ on:
           - Amlogic s922x GT-King-Pro
           - Firefly-RK3328
           - RK3318-BOX
+      kernel:
+        description: "Select kernel version"
+        required: false
+        default: "6.6.y"
+        type: choice
+        options:
+          - 5.15.y
+          - 6.1.y
+          - 6.6.y
+          - 6.12.y
+          - 5.15.y_6.1.y
+          - 6.1.y_6.12.y
+          - 6.1.y_6.6.y
+          - 6.6.y_6.12.y    
       tunnel:
         description: "Select Tunnel VPN"
         required: true
