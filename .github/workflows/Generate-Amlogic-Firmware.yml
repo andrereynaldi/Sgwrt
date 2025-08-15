@@ -46,20 +46,6 @@ on:
           - Amlogic s922x GT-King-Pro
           - Firefly-RK3328
           - RK3318-BOX
-      kernel:
-        description: "Select kernel version"
-        required: false
-        default: "6.6.y"
-        type: choice
-        options:
-          - 5.15.y
-          - 6.1.y
-          - 6.6.y
-          - 6.12.y
-          - 5.15.y_6.1.y
-          - 6.1.y_6.12.y
-          - 6.1.y_6.6.y
-          - 6.6.y_6.12.y    
       tunnel:
         description: "Select Tunnel VPN"
         required: true
@@ -370,7 +356,7 @@ jobs:
               ;;
             "Amlogic s905x HG680P")
               TARGET_BUILD="s905x"
-              KERNEL="6.6.y"
+              KERNEL="5.15.y_6.1.y_6.6.y_6.12.y"
               echo "TARGET_BUILD=$TARGET_BUILD" >> $GITHUB_ENV
               echo "KERNEL=$KERNEL" >> $GITHUB_ENV
               ;;
