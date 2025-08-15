@@ -133,7 +133,6 @@ fi
 
 # setup misc settings
 log_status "INFO" "Setting up misc settings and permissions..."
-sed -i -e 's/\[ -f \/etc\/banner \] && cat \/etc\/banner/#&/' -e 's/\[ -n \"\$FAILSAFE\" \] && cat \/etc\/banner.failsafe/& || \/usr\/bin\/foundx/' /etc/profile 2>/dev/null
 chmod -R +x /sbin /usr/bin 2>/dev/null
 chmod +x /etc/init.d/issue 2>/dev/null
 chmod +x /root/install2.sh 2>/dev/null
