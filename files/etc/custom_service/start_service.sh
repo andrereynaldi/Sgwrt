@@ -14,7 +14,7 @@
 #
 #========================================================================================
 # Custom Service Log
-custom_log="/tmp/ophub_start_service.log"
+custom_log="/tmp/start_service.log"
 
 # Add custom log
 echo "[$(date +"%Y.%m.%d.%H:%M:%S")] Start the custom service..." >${custom_log}
@@ -23,6 +23,15 @@ echo "[$(date +"%Y.%m.%d.%H:%M:%S")] Start the custom service..." >${custom_log}
 [[ -x "/usr/sbin/balethirq.pl" ]] && {
     perl /usr/sbin/balethirq.pl 2>/dev/null &&
         echo "[$(date +"%Y.%m.%d.%H:%M:%S")] The network optimization service started successfully." >>${custom_log}
+fi
+
+# Led display control
+openvfd_enable="no"
+openvfd_boxid="15"
+if [[ "${openvfd_enable}" == "yes" && -n "${openvfd_boxid}" && -x "/usr/sbin/openwrt-openvfd" ]]; then
+    (openwrt-openvfd "${openvfd_boxid}") || true
+    log_message "OpenVFD service execution attempted." >>${custom_log}     
+        
 }
 
 # Add custom log
