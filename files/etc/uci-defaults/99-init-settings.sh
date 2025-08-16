@@ -38,7 +38,7 @@ log_status "INFO" "========================================="
 
 # change icon port
 sed -i -E 's/icons\/port_%s\.(svg|png)/icons\/port_%s.gif/g' /www/luci-static/resources/view/status/include/29_ports.js 2>/dev/null
-mv /www/luci-static/resources/view/status/include/29_ports.js /www/luci-static/resources/view/status/include/11_ports.js 2>/dev/null
+mv /www/luci-static/resources/view/status/include/29_ports.js /www/luci-static/resources/view/status/include/28_ports.js 2>/dev/null
 log_status "SUCCESS" "Firmware and port modifications completed"
 
 # check system release
