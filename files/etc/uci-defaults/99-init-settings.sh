@@ -63,19 +63,6 @@ log_status "INFO" "Setting up root password..."
 (echo "123456879"; sleep 2; echo "123456879") | passwd >/dev/null 2>&1
 log_status "SUCCESS" "Root password configured"
 
-# setup hostname and timezone
-log_status "INFO" "Configuring hostname and timezone to Asia/Jakarta..."
-uci set system.@system[0].hostname='SOGEKING' 2>/dev/null
-uci set system.@system[0].timezone='WIB-7' 2>/dev/null
-uci set system.@system[0].zonename='Asia/Jakarta' 2>/dev/null
-uci delete system.ntp.server 2>/dev/null
-uci add_list system.ntp.server='0.id.pool.ntp.org' 2>/dev/null
-uci add_list system.ntp.server='1.id.pool.ntp.org' 2>/dev/null
-uci add_list system.ntp.server='2.id.pool.ntp.org' 2>/dev/null
-uci add_list system.ntp.server='3.id.pool.ntp.org' 2>/dev/null
-uci commit system 2>/dev/null
-log_status "SUCCESS" "System configuration completed"
-
 # setup bahasa default
 log_status "INFO" "Setting up default language to English..."
 uci set luci.@core[0].lang='en' 2>/dev/null
