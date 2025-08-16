@@ -57,34 +57,6 @@ setup_branch_config() {
     esac
 }
 
-# Configure file permissions for Amlogic
-configure_amlogic_permissions() {
-    case "${TYPE}" in
-    "OPHUB" | "ULO")
-        log "INFO" "Setting up Amlogic file permissions"
-        local netifd_files=(
-            "/lib/netifd/proto/dhcp.sh"
-            "/lib/netifd/proto/dhcpv6.sh"
-            "/lib/netifd/dhcp-get-server.sh"
-            "/lib/netifd/dhcp.script"
-            "/lib/netifd/dhcpv6.script"
-            "/lib/netifd/hostapd.sh"
-            "/lib/netifd/netifd-proto.sh"
-            "/lib/netifd/netifd-wireless.sh"
-            "/lib/netifd/utils.sh"
-        )
-        
-        for file in "${netifd_files[@]}"; do
-            sed -i "/# setup misc settings/ a\chmod +x $file" files/etc/uci-defaults/99-init-settings.sh
-        done
-        ;;
-    *)
-        log "INFO" "Removing lib directory for non-Amlogic build"
-        rm -rf files/lib
-        ;;
-    esac
-}
-
 # Download custom scripts
 download_custom_scripts() {
     log "INFO" "Downloading custom scripts"
@@ -104,9 +76,7 @@ download_custom_scripts() {
 main() {
     init_environment
     setup_base_config
-    handle_amlogic_files
     setup_branch_config
-    configure_amlogic_permissions
     download_custom_scripts
     log "SUCCESS" "All custom configuration setup completed!"
 }
