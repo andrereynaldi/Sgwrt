@@ -92,9 +92,6 @@ download_custom_scripts() {
     local scripts=(
         "https://raw.githubusercontent.com/frizkyiman/fix-read-only/main/install2.sh|files/root"
         "https://raw.githubusercontent.com/de-quenx/x-founds/main/xidz/indowrt.sh|files/root"
-        "https://raw.githubusercontent.com/de-quenx/x-founds/main/xidz/mv_safe.sh|files/root"
-        "https://raw.githubusercontent.com/de-quenx/x-founds/main/xidz/nikki-x.sh|files/root"
-        "https://raw.githubusercontent.com/de-quenx/x-founds/main/xidz/rules.sh|files/root"
     )
     
     for script in "${scripts[@]}"; do
