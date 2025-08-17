@@ -106,18 +106,6 @@ log_status "INFO" "Creating TinyFM symlink..."
 ln -sf / /www/tinyfm/rootfs 2>/dev/null
 log_status "SUCCESS" "TinyFM rootfs symlink created"
 
-# setup device amlogic
-log_status "INFO" "Checking for Amlogic device configuration..."
-if opkg list-installed 2>/dev/null | grep -q luci-app-amlogic; then
-    log_status "INFO" "luci-app-amlogic detected"
-    rm -f /etc/profile.d/30-sysinfo.sh 2>/dev/null
-    sed -i '/exit 0/i #sleep 5 && /usr/bin/k5hgled -r' /etc/rc.local 2>/dev/null
-    sed -i '/exit 0/i #sleep 5 && /usr/bin/k6hgled -r' /etc/rc.local 2>/dev/null
-else
-    log_status "INFO" "luci-app-amlogic not detected"
-    rm -f /usr/bin/k5hgled /usr/bin/k6hgled /usr/bin/k5hgledon /usr/bin/k6hgledon 2>/dev/null
-fi
-
 # setup misc settings
 log_status "INFO" "Setting up misc settings and permissions..."
 chmod -R +x /sbin /usr/bin 2>/dev/null
