@@ -109,15 +109,7 @@ log_status "SUCCESS" "TinyFM rootfs symlink created"
 # setup misc settings
 log_status "INFO" "Setting up misc settings and permissions..."
 chmod -R +x /sbin /usr/bin 2>/dev/null
-chmod +x /etc/init.d/issue 2>/dev/null
-chmod +x /root/install2.sh 2>/dev/null
-/root/install2.sh 2>/dev/null
 log_status "SUCCESS" "Misc settings configured"
-
-# add auto sinkron jam, Clean Cache, Remove mm tty
-log_status "INFO" "Add Auto Sinkron Jam, Clean Cache, Remove mm tty..."
-sed -i '/exit 0/i #sh /usr/bin/autojam.sh bug.com' /etc/rc.local 2>/dev/null
-log_status "SUCCESS" "Auto sync, cache settings, remove mm tty applied"
 
 # add TTL
 log_status "INFO" "Adding and running TTL script..."
