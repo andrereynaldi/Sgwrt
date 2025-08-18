@@ -9,3 +9,8 @@ config amlogic 'config'
 	option amlogic_write_bootloader '1'
 	option amlogic_shared_fstype 'ext4'
 	option amlogic_kernel_branch '6.6'
+
+config settings 'armcpu'
+	option governor0 'performance'
+	option minfreq0 '1200000'
+	option maxfreq0 '1512000'
