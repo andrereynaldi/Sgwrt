@@ -14,8 +14,8 @@ config dnsmasq
 	option localservice '1'
 	option ednspacket_max '1232'
 	option localuse '1'
-	list server '8.8.8.8'
-	list server '8.8.4.4'
+	list server '9.9.9.9'
+	list server '149.112.112.112'
 	option resolvfile '/tmp/resolv.conf.d/resolv.conf.auto'
 	list cache_rr 'ANY'
 
