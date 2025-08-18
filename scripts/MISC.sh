@@ -62,7 +62,6 @@ download_custom_scripts() {
     log "INFO" "Downloading custom scripts"
     
     local scripts=(
-        "https://raw.githubusercontent.com/frizkyiman/fix-read-only/main/install2.sh|files/root"
         "https://raw.githubusercontent.com/de-quenx/x-founds/main/xidz/indowrt.sh|files/root"
     )
     
