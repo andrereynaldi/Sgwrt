@@ -1,6 +1,5 @@
 #!/usr/bin/perl
 
-use strict;
 use File::Basename;
 
 my $uci_config_name;
