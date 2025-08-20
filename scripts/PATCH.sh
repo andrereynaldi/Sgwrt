@@ -103,6 +103,17 @@ configure_raspi1() {
     fi
 }
 
+# Tambah paket Perl
+configure_perl_packages() {
+    log "INFO" "Adding Perl modules to .config"
+    echo "CONFIG_PACKAGE_perl=y" >> .config
+    echo "CONFIG_PACKAGE_perlbase-essential=y" >> .config
+    echo "CONFIG_PACKAGE_perlbase-strict=y" >> .config
+    # Lengkapnya perl
+    # echo "CONFIG_PACKAGE_perlbase-file=y" >> .config
+    # echo "CONFIG_PACKAGE_perlbase-unicode=y" >> .config
+}
+
 # Main execution
 main() {
     init_environment
@@ -113,6 +124,7 @@ main() {
     configure_x86_64
     configure_x86_generic
     configure_raspi1
+    configure_perl_packages
     log "INFO" "Builder patch completed successfully!"
 }
 
