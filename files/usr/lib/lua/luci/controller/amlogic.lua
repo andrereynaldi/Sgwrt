@@ -8,7 +8,7 @@ function index()
 		return
 	end
 
-	local page = entry({ "admin", "system", "amlogic" }, alias("admin", "system", "amlogic", "info"), _("Amlogic Service"), 88)
+	local page = entry({ "admin", "services", "amlogic" }, alias("admin", "system", "amlogic", "info"), _("Amlogic Service"), 88)
 	page.dependent = true
 	page.acl_depends = { PKG_NAME }
 
