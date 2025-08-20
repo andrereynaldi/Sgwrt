@@ -38,32 +38,6 @@ configure_amlogic() {
         sed -i "s|CONFIG_TARGET_ROOTFS_EXT4FS=.*|# CONFIG_TARGET_ROOTFS_EXT4FS is not set|g" .config
         sed -i "s|CONFIG_TARGET_ROOTFS_SQUASHFS=.*|# CONFIG_TARGET_ROOTFS_SQUASHFS is not set|g" .config
         sed -i "s|CONFIG_TARGET_IMAGES_GZIP=.*|# CONFIG_TARGET_IMAGES_GZIP is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-amazon-ena =.*|# CONFIG_DEFAULT_kmod-amazon-ena is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-atlantic=.*|# CONFIG_DEFAULT_kmod-atlantic is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-bcmgenet=.*|# CONFIG_DEFAULT_kmod-bcmgenet is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-dwmac-imx=.*|# CONFIG_DEFAULT_kmod-dwmac-imx is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-dwmac-rockchip=.*|# CONFIG_DEFAULT_kmod-dwmac-rockchip is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-dwmac-sun8i=.*|# CONFIG_DEFAULT_kmod-dwmac-sun8i is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-e1000e=.*|# CONFIG_DEFAULT_kmod-e1000e is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-fsl-dpaa1-net=.*|# CONFIG_DEFAULT_kmod-fsl-dpaa1-net is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-fsl-dpaa2-net=.*|# CONFIG_DEFAULT_kmod-fsl-dpaa2-net is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-fsl-enetc-net=.*|# CONFIG_DEFAULT_kmod-fsl-enetc-net is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-fsl-fec=.*|# CONFIG_DEFAULT_kmod-fsl-fec is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-gpio-pca953x=.*|# CONFIG_DEFAULT_kmod-gpio-pca953x is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-i2c-mux-pca954x=.*|# CONFIG_DEFAULT_kmod-i2c-mux-pca954x is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-mvneta=.*|# CONFIG_DEFAULT_kmod-mvneta is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-mvpp2=.*|# CONFIG_DEFAULT_kmod-mvpp2 is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-octeontx2-net=.*|# CONFIG_DEFAULT_kmod-octeontx2-net is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-phy-aquantia=.*|# CONFIG_DEFAULT_kmod-phy-aquantia is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-phy-broadcom=.*|# CONFIG_DEFAULT_kmod-phy-broadcom is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-phy-marvell=.*|# CONFIG_DEFAULT_kmod-phy-marvell is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-phy-marvell-10g=.*|# CONFIG_DEFAULT_kmod-phy-marvell-10g is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-phy-smsc=.*|# CONFIG_DEFAULT_kmod-phy-smsc is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-renesas-net-avb=.*|# CONFIG_DEFAULT_kmod-renesas-net-avb is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-rtc-rx8025=.*|# CONFIG_DEFAULT_kmod-rtc-rx8025 is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-sfp=.*|# CONFIG_DEFAULT_kmod-sfp is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-vmxnet3=.*|# CONFIG_DEFAULT_kmod-vmxnet3 is not set|g" .config
-        sed -i "s|CONFIG_DEFAULT_kmod-wdt-sp805=.*|# CONFIG_DEFAULT_kmod-wdt-sp805 is not set|g" .config
     else
         # Jika tipe lain, hanya tampilkan informasi
         log "INFO" "system type: ${TYPE}"
