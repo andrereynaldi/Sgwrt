@@ -132,7 +132,6 @@ configure_raspi1() {
 # Main execution
 main() {
     init_environment
-    apply_distro_patches
     patch_signature_check
     patch_makefile
     configure_partitions
