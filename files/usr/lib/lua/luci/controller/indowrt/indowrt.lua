@@ -1,7 +1,7 @@
 module("luci.controller.indowrt.indowrt", package.seeall)
 
 function index()
-    entry({"admin", "network", "indowrt"}, call("render_page"), _("Fix TTL"), 100).leaf = true
+    entry({"admin", "network", "indowrt"}, call("render_page"), _("Time To Live"), 100).leaf = true
 end
 
 function get_current_ttl()
