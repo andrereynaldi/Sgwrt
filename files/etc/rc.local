@@ -1,6 +1,5 @@
 # Put your custom commands here that should be executed once
 # the system init finished. By default this file does nothing.
 
-bash /etc/custom_service/start_service.sh
 sleep 5 && /usr/sbin/hgled -r
 exit 0
