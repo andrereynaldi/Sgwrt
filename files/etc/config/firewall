@@ -7,15 +7,13 @@ config defaults
 	option flow_offloading '1'
 
 config zone
-	option name 'lan'
+	option name 'bridge'
 	option input 'ACCEPT'
 	option output 'ACCEPT'
 	option forward 'ACCEPT'
-	list network 'lan'
+	list network 'bridge'
 	list network 'lan1'
 	list network 'lan0'
-	list network 'Bridge'
-	list network 'bridge'
 
 config zone
 	option name 'wan'
@@ -28,7 +26,7 @@ config zone
 	list network 'tethering'
 
 config forwarding
-	option src 'lan'
+	option src 'bridge'
 	option dest 'wan'
 
 config rule
@@ -112,14 +110,14 @@ config rule
 config rule
 	option name 'Allow-IPSec-ESP'
 	option src 'wan'
-	option dest 'lan'
+	option dest 'bridge'
 	option proto 'esp'
 	option target 'ACCEPT'
 
 config rule
 	option name 'Allow-ISAKMP'
 	option src 'wan'
-	option dest 'lan'
+	option dest 'bridge'
 	option dest_port '500'
 	option proto 'udp'
 	option target 'ACCEPT'
