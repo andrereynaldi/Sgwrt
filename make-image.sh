@@ -18,7 +18,7 @@ EXCLUDED=""
 # Core system + Web Server + LuCI
 PACKAGES+=" libc bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
 curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus \
-luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base dnsmasq"
+luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files ca-bundle dropbear fstools libc libgcc libustream-mbedtls logd mtd netifd uci uclient-fetch urandom-seed urngd mkf2fs e2fsprogs blkid kmod-fs-vfat procd-ujail dnsmasq firewall4 nftables kmod-nft-offload odhcp6c odhcpd-ipv6only ppp ppp-mod-pppoe opkg"
 
 # USB + LAN Networking Drivers And Tethering Tools
 PACKAGES+=" kmod-usb-net  kmod-mii  kmod-nls-utf8 kmod-usb2 \
