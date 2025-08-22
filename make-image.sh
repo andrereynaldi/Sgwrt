@@ -16,10 +16,9 @@ MISC=""
 EXCLUDED=""
 
 # Core system + Web Server + LuCI
-PACKAGES+=" libc bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
+PACKAGES+=" dnsmasq libc bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
 curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus \
-luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files ca-bundle dropbear fstools libc libgcc libustream-mbedtls logd mtd netifd uci uclient-fetch urandom-seed urngd mkf2fs e2fsprogs blkid kmod-fs-vfat procd-ujail dnsmasq firewall4 nftables kmod-nft-offload odhcp6c odhcpd-ipv6only opkg"
-
+luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files perl-base perl-essential"
 # USB + LAN Networking Drivers And Tethering Tools
 PACKAGES+=" kmod-usb-net  kmod-mii  kmod-nls-utf8 kmod-usb2 \
 kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-rtl8152 usbutils"
@@ -55,7 +54,7 @@ PACKAGES+=" luci-theme-argon"
 PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring"
 
 # Misc Packages + Custom Packages
-MISC+=" zoneinfo-core zoneinfo-asia jq openssh-sftp-server zram-swap screen lolcat perl-base perl-essential \
+MISC+=" zoneinfo-core zoneinfo-asia jq openssh-sftp-server zram-swap screen lolcat \
 luci-app-cpu-status luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luci-app-ttyd"
 
 # Profil Name
@@ -83,7 +82,7 @@ configure_profile_packages() {
 configure_release_packages() {
     if [[ "${BASE:-}" == "openwrt" ]]; then
         MISC+=""
-        EXCLUDED+=" -dnsmasq kmod-amazon-ena kmod-e1000e kmod-vmxnet3 kmod-rtc-rx8025 kmod-i2c-mux-pca954x kmod-gpio-pca953x partx-utils kmod-wdt-sp805 kmod-mvneta kmod-mvpp2 kmod-fsl-dpaa1-net kmod-fsl-dpaa2-net kmod-fsl-enetc-net kmod-dwmac-imx kmod-fsl-fec kmod-dwmac-rockchip kmod-dwmac-sun8i kmod-phy-aquantia kmod-phy-broadcom kmod-phy-marvell kmod-phy-marvell-10g kmod-sfp kmod-atlantic kmod-bcmgenet kmod-octeontx2-net kmod-renesas-net-avb kmod-phy-realtek kmod-phy-smsc"
+        EXCLUDED+="  kmod-amazon-ena kmod-e1000e kmod-vmxnet3 kmod-rtc-rx8025 kmod-i2c-mux-pca954x kmod-gpio-pca953x partx-utils kmod-wdt-sp805 kmod-mvneta kmod-mvpp2 kmod-fsl-dpaa1-net kmod-fsl-dpaa2-net kmod-fsl-enetc-net kmod-dwmac-imx kmod-fsl-fec kmod-dwmac-rockchip kmod-dwmac-sun8i kmod-phy-aquantia kmod-phy-broadcom kmod-phy-marvell kmod-phy-marvell-10g kmod-sfp kmod-atlantic kmod-bcmgenet kmod-octeontx2-net kmod-renesas-net-avb kmod-phy-realtek kmod-phy-smsc"
     elif [[ "${BASE:-}" == "immortalwrt" ]]; then
         MISC+=""
         EXCLUDED+=" -dnsmasq -cpusage -automount -libustream-openssl -default-settings-chn -luci-i18n-base-zh-cn"
