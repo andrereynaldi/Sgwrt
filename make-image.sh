@@ -16,7 +16,7 @@ MISC=""
 EXCLUDED=""
 
 # Core system + Web Server + LuCI
-PACKAGES+=" dnsmasq libc bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
+PACKAGES+=" dnsmasq libc libpthread bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
 curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus \
 luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files"
 
