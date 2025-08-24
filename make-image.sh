@@ -24,6 +24,19 @@ luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files"
 PACKAGES+=" kmod-usb-net  kmod-mii  kmod-nls-utf8 kmod-usb2 \
 kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-rtl8152 usbutils"
 
+# Storage - NAS
+PACKAGES+=" luci-app-diskman kmod-usb-storage kmod-usb-storage-uas ntfs-3g"
+
+# Theme + UI
+PACKAGES+=" luci-theme-argon"
+
+# PHP8
+PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring"
+
+# Misc Packages + Custom Packages
+MISC+=" zoneinfo-core zoneinfo-asia jq openssh-sftp-server zram-swap screen lolcat \
+luci-app-cpu-status luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luci-app-ttyd"
+
 # VPN Tunnel
 OPENCLASH="coreutils-nohup bash ca-certificates ipset ip-full libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag kmod-nft-tproxy luci-app-openclash"
 NIKKI="nikki luci-app-nikki"
@@ -44,19 +57,6 @@ add_tunnel_packages() {
         :
     fi
 }
-
-# Storage - NAS
-PACKAGES+=" luci-app-diskman kmod-usb-storage kmod-usb-storage-uas ntfs-3g"
-
-# Theme + UI
-PACKAGES+=" luci-theme-argon"
-
-# PHP8
-PACKAGES+=" php8 php8-fastcgi php8-fpm php8-mod-session php8-mod-ctype php8-mod-fileinfo php8-mod-zip php8-mod-iconv php8-mod-mbstring"
-
-# Misc Packages + Custom Packages
-MISC+=" zoneinfo-core zoneinfo-asia jq openssh-sftp-server zram-swap screen lolcat \
-luci-app-cpu-status luci-app-poweroffdevice luci-app-ramfree luci-app-tinyfm luci-app-ttyd"
 
 # Profil Name
 configure_profile_packages() {
