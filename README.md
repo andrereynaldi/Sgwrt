@@ -1,1 +1,1 @@
-Less is More
+To infinity and beyond.
