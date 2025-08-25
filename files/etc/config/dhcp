@@ -26,10 +26,3 @@ config dhcp 'bridge'
 	option leasetime '6h'
 	option dhcpv4 'server'
 	option force '1'
-
-config odhcpd 'odhcpd'
-	option maindhcp '0'
-	option leasefile '/tmp/hosts/odhcpd'
-	option leasetrigger '/usr/sbin/odhcpd-update'
-	option loglevel '4'
-
