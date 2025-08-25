@@ -12,8 +12,8 @@ config zone
 	option output 'ACCEPT'
 	option forward 'ACCEPT'
 	list network 'bridge'
-	list network 'lan1'
 	list network 'lan0'
+	list network 'lan1'
 
 config zone
 	option name 'wan'
