@@ -63,17 +63,6 @@ log_status "INFO" "Setting up root password..."
 (echo "123456879"; sleep 2; echo "123456879") | passwd >/dev/null 2>&1
 log_status "SUCCESS" "Root password configured"
 
-# setup bahasa default
-log_status "INFO" "Setting up default language to English..."
-uci set luci.@core[0].lang='en' 2>/dev/null
-uci commit luci 2>/dev/null
-log_status "SUCCESS" "Language set to English"
-
-log_status "INFO" "Configuring firewall..."
-uci set firewall.@zone[1].network='tethering' 2>/dev/null
-uci commit firewall 2>/dev/null
-log_status "SUCCESS" "Firewall configuration completed"
-
 # disable opkg signature check
 log_status "INFO" "Disabling OPKG signature check..."
 sed -i 's/option check_signature/# option check_signature/g' /etc/opkg.conf 2>/dev/null
@@ -88,12 +77,6 @@ if [ -n "$ARCH" ]; then
 else
     log_status "WARNING" "Could not determine architecture for custom repository"
 fi
-
-# setup default theme
-log_status "INFO" "Setting up Argon theme as default..."
-uci set luci.main.mediaurlbase='/luci-static/argon' 2>/dev/null
-uci commit luci 2>/dev/null
-log_status "SUCCESS" "Argon theme set as default"
 
 # remove login password ttyd
 log_status "INFO" "Configuring TTYD without login password..."
