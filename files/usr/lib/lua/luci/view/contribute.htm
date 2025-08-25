@@ -2,30 +2,76 @@
 <h2>♥ Contribute</h2>
 
 <div style="margin:20px 0; font-weight:bold;">
-  <p>Hello There!!!<br/>
+  <p>Hello There,<br/>
   Terima Kasih Sudah Menjadi Bagian Dari Project Yang Kita Buat Bersama.</p>
 </div>
 
-<div style="text-align:center; margin:20px 0;">
-  <a href="https://saweria.co/SOGEKING" target="_blank" style="display:inline-block;">
-    <img src="/luci-static/resources/contribute_saweria.png" style="max-width:250px; border:0px solid #ddd; padding:5px; border-radius:8px;"/>
-  </a>
-  <p style="margin-top:10px;">
-    <a href="https://saweria.co/SOGEKING" target="_blank" style="font-size:18px; font-weight:bold; text-decoration:none; color:#007bff;">
-      Link via Saweria
+<!-- Container Saweria & Dana -->
+<div class="donate-container">
+  <div class="donate-item">
+    <a href="https://saweria.co/SOGEKING" target="_blank" style="display:inline-block;">
+      <img src="/luci-static/resources/contribute_saweria.png"
+           style="max-width:250px; border:0px solid #ddd; padding:5px; border-radius:8px;"/>
     </a>
-  </p>
+    <p style="margin-top:10px;">
+      <a href="https://saweria.co/SOGEKING" target="_blank"
+         style="font-size:18px; font-weight:bold; text-decoration:none; color:#007bff;">
+        Link via Saweria
+      </a>
+    </p>
+  </div>
+
+  <div class="donate-item">
+    <img src="/luci-static/resources/contribute_dana.png"
+         style="max-width:250px; border:1px solid #ddd; padding:5px; border-radius:8px;"/>
+    <p style="margin-top:10px;">
+      <span style="font-size:16px; font-weight:bold; text-decoration:none; color:#007bff;">
+        QR Code via DANA
+      </span>
+    </p>
+  </div>
 </div>
 
-<div style="text-align:center; margin-top:30px;">
-  <img src="/luci-static/resources/contribute_dana.png" style="max-width:250px; border:1px solid #ddd; padding:5px; border-radius:8px;"/>
-  <p style="margin-top:10px;"><b>QR Code via DANA</b></p>
+<!-- Credit Section -->
+<div class="credit-section">
+  <b>Developed by @sogek1ng__</b>
+  <br/>
+  <b>Contributors: -</b>
 </div>
 
 <hr style="margin:40px 0;">
 
 <footer style="text-align:center; font-size:13px; color:#888;">
-  © 2025 - @sogek1ng__
+  © 2025 - <b>@sogek1ng__</b>
 </footer>
+
+<style>
+  .donate-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35px;
+    margin: 50px 0;
+  }
+
+  .donate-item {
+    text-align: center;
+  }
+
+  .credit-section {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 14px;
+    color: #555;
+    line-height: 1.8;
+  }
+  
+  @media (min-width: 768px) {
+    .donate-container {
+      flex-direction: row;
+      justify-content: center;
+    }
+  }
+</style>
 
 <%+footer%>
