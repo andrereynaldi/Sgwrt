@@ -13,8 +13,8 @@ return view.extend({
                 class: 'btn cbi-button cbi-button-negative',
                 click: ui.createHandlerFn(this, 'handlePowerOff')
             }, _('Shutdown'))
-        ]);   // <- ini yang hilang
-    },       // <- ini juga penting untuk pisah render() dan handlePowerOff()
+        ]);
+    },
 
     handlePowerOff: function() {
         return ui.showModal(_('Shutdown Device'), [
