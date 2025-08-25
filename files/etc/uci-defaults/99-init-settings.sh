@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Setup logging
-LOG_FILE="/root/setup.log"
+LOG_FILE="/tmp/setup.log"
 exec > "$LOG_FILE" 2>&1
 
 # logging dengan status
