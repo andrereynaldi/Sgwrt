@@ -1,10 +1,9 @@
-
 #!/bin/sh
 
 # Mendefinisikan jalur file
 TTL_FILE="/etc/nftables.d/TTL.nft"
-TTL_LUA="/usr/lib/lua/luci/controller/TTL.lua"
-TTL_HTM="/usr/lib/lua/luci/view/TTL.htm"
+TTL_LUA="/usr/lib/lua/luci/controller/ttlchanger.lua"
+TTL_HTM="/usr/lib/lua/luci/view/ttlchanger.htm"
 
 # Fungsi untuk memeriksa dan menghapus file jika sudah ada
 hapus_jika_ada() {
@@ -17,8 +16,8 @@ hapus_jika_ada() {
 
 # Menghapus file yang sudah ada jika ada
 hapus_jika_ada "$TTL_FILE"
-hapus_jika_ada "TTL_LUA"
-hapus_jika_ada "TTL_HTM"
+hapus_jika_ada "$TTL_LUA"
+hapus_jika_ada "$TTL_HTM"
 
 # Membuat file TTL.nft dengan nilai TTL yang dinamis
 buat_file_ttl() {
@@ -38,12 +37,12 @@ chain mangle_prerouting_ttl65 {
 EOL
 }
 
-# Membuat file TTL.lua
-buat_indowrt_lua() {
-    echo "Membuat TTL_LUA"
-    mkdir -p "$(dirname "TTL_LUA")"  # Pastikan direktori ada
-    cat <<EOL > "TTL_LUA"
-module("luci.controller.ttlchanger.ttlchanger", package.seeall)
+# Membuat file ttlchanger.lua
+buat_ttl_lua() {
+    echo "Membuat $TTL_LUA"
+    mkdir -p "$(dirname "$TTL_LUA")"  # Pastikan direktori ada
+    cat <<EOL > "$TTL_LUA"
+module("luci.controller.ttlchanger", package.seeall)
 
 function index()
     entry({"admin", "network", "ttlchanger"}, call("render_page"), _("Time to Live"), 100).leaf = true
@@ -101,7 +100,7 @@ function render_page()
         end
     end
 
-    tpl.render("TTL/page", {
+    tpl.render("ttlchanger", {
         current_ttl = current_ttl or "N/A",  -- Menampilkan TTL saat ini, atau N/A jika tidak ada
         ttl_value = ttl_value or current_ttl
     })
@@ -109,10 +108,10 @@ end
 EOL
 }
 
-# Membuat file TTL.htm di direktori yang benar
+# Membuat file ttlchanger.htm di direktori yang benar
 buat_page_htm() {
-    echo "Membuat TTL_HTM"
-    mkdir -p "$(dirname "$Tidak Ada TTL yang Ditetapkan_HTM")"  # Pastikan direktori ada
+    echo "Membuat $TTL_HTM"
+    mkdir -p "$(dirname "$TTL_HTM")"  # Pastikan direktori ada
     cat <<EOL > "$TTL_HTM"
 <%+header%>
 
@@ -150,8 +149,8 @@ TTL_VALUE="${1:-65}"
 
 # Membuat file-file yang diperlukan
 buat_file_ttl "$TTL_VALUE"
-buat_TTL_lua
-buat_TTL_htm
+buat_ttl_lua
+buat_page_htm
 
 # Menampilkan pesan sukses
 echo "Semua file berhasil dibuat"
