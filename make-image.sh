@@ -82,7 +82,7 @@ configure_profile_packages() {
 # Packages Base
 configure_release_packages() {
     if [[ "${BASE:-}" == "openwrt" ]]; then
-        MISC+=""
+        MISC+=" luci-app-temp-status"
         EXCLUDED+="  kmod-amazon-ena kmod-e1000e kmod-vmxnet3 kmod-rtc-rx8025 kmod-i2c-mux-pca954x kmod-gpio-pca953x partx-utils kmod-wdt-sp805 kmod-mvneta kmod-mvpp2 kmod-fsl-dpaa1-net kmod-fsl-dpaa2-net kmod-fsl-enetc-net kmod-dwmac-imx kmod-fsl-fec kmod-dwmac-rockchip kmod-dwmac-sun8i kmod-phy-aquantia kmod-phy-broadcom kmod-phy-marvell kmod-phy-marvell-10g kmod-sfp kmod-atlantic kmod-bcmgenet kmod-octeontx2-net kmod-renesas-net-avb kmod-phy-realtek kmod-phy-smsc"
     elif [[ "${BASE:-}" == "immortalwrt" ]]; then
         MISC+=""
