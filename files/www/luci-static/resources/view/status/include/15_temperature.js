@@ -36,10 +36,10 @@ document.head.append(E('style', {'type': 'text/css'}, `
 `));
 
 return baseclass.extend({
-    title: _('Temperature'), // Judul tetap seperti semula
+    title: _('Temperature'),
     viewName: 'temp_status',
-    tempHot: 95,
-    tempOverheat: 105,
+    tempHot: 45,
+    tempOverheat: 60,
     sensorsData: null,
     tempData: null,
     sensorsPath: [],
@@ -68,8 +68,6 @@ return baseclass.extend({
     makeTempTableContent() {
         let tempTable = E('table', {'class': 'table'});
         
-        // Header row dihapus (tidak ada tulisan Sensor dan Temperature di atas)
-
         if (this.sensorsData && this.tempData) {
             for (let [k, v] of Object.entries(this.sensorsData)) {
                 v.sort(this.sortFunc);
@@ -80,7 +78,6 @@ return baseclass.extend({
                     };
                     i.sources.sort(this.sortFunc);
                     for (let j of i.sources) {
-                        // Hanya tampilkan sensor CPU thermal
                         if (!j.path.includes('thermal_zone') && !j.path.includes('cpu_thermal')) {
                             continue;
                         }
@@ -117,7 +114,6 @@ return baseclass.extend({
 
                         let rowStyle = (temp >= tempOverheat) ? ' temp-status-overheat' : (temp >= tempHot) ? ' temp-status-hot' : '';
 
-                        // Kolom kiri: CPU Temperature, Kolom kanan: angka suhu
                         tempTable.append(E('tr', {
                             'class': 'tr' + rowStyle,
                             'data-path': j.path,
@@ -125,11 +121,11 @@ return baseclass.extend({
                             E('td', {
                                 'class': 'td left',
                                 'data-title': _('Sensor')
-                            }, 'CPU Temperature'), // Text di kolom kiri
+                            }, 'CPU Temperature'),
                             E('td', {
                                 'class': 'td right',
                                 'data-title': _('Temperature')
-                            }, (temp === undefined || temp === null) ? '-' : temp + ' °C'), // Angka di kolom kanan
+                            }, (temp === undefined || temp === null) ? '-' : temp + ' °C'),
                         ]));
                     };
                 };
