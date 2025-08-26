@@ -16,7 +16,7 @@ MISC=""
 EXCLUDED=""
 
 # Core system + Web Server + LuCI
-PACKAGES+=" dnsmasq libc libpthread bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
+PACKAGES+=" luci-app-temp-status dnsmasq libc libpthread bash block-mount coreutils-base64 coreutils-sleep coreutils-stat coreutils-stty \
 curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus \
 luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files"
 
@@ -82,7 +82,7 @@ configure_profile_packages() {
 # Packages Base
 configure_release_packages() {
     if [[ "${BASE:-}" == "openwrt" ]]; then
-        MISC+=" luci-app-temp-status"
+        MISC+=""
         EXCLUDED+="  kmod-amazon-ena kmod-e1000e kmod-vmxnet3 kmod-rtc-rx8025 kmod-i2c-mux-pca954x kmod-gpio-pca953x partx-utils kmod-wdt-sp805 kmod-mvneta kmod-mvpp2 kmod-fsl-dpaa1-net kmod-fsl-dpaa2-net kmod-fsl-enetc-net kmod-dwmac-imx kmod-fsl-fec kmod-dwmac-rockchip kmod-dwmac-sun8i kmod-phy-aquantia kmod-phy-broadcom kmod-phy-marvell kmod-phy-marvell-10g kmod-sfp kmod-atlantic kmod-bcmgenet kmod-octeontx2-net kmod-renesas-net-avb kmod-phy-realtek kmod-phy-smsc"
     elif [[ "${BASE:-}" == "immortalwrt" ]]; then
         MISC+=""
