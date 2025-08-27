@@ -21,7 +21,7 @@ curl wget-ssl tar unzip parted losetup uhttpd uhttpd-mod-ubus \
 luci-mod-admin-full luci-lib-ip luci-compat luci-ssl luci luci-base base-files"
 
 # USB + LAN Networking Drivers And Tethering Tools
-PACKAGES+=" kmod-usb-net  kmod-mii  kmod-nls-utf8 kmod-usb2 \
+PACKAGES+=" kmod-usb-net kmod-mii kmod-nls-utf8 kmod-usb2 \
 kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-rtl8152 usbutils"
 
 # Storage - NAS
@@ -71,8 +71,8 @@ configure_profile_packages() {
     fi
 
     if [[ "${TYPE:-}" == "OPHUB" ]]; then
-        PACKAGES+=" perlbase-base perlbase-file libselinux libsepol musl-fts luci-app-amlogic"
-        EXCLUDED+=" -libiwinfo-data -libiwinfo -rpcd-mod-iwinfo -kmod-nls-cp437 -kmod-nls-iso8859-1 -procd-ujail -kmod-tun -kmod-amazon-ena -kmod-e1000e -kmod-vmxnet3 -kmod-rtc-rx8025 -kmod-i2c-mux-pca954x -kmod-gpio-pca953x -partx-utils -kmod-wdt-sp805 -kmod-mvneta -kmod-mvpp2 -kmod-fsl-dpaa1-net -kmod-fsl-dpaa2-net -kmod-fsl-enetc-net -kmod-dwmac-imx -kmod-fsl-fec -kmod-dwmac-rockchip -kmod-dwmac-sun8i -kmod-phy-aquantia -kmod-phy-broadcom -kmod-phy-marvell -kmod-phy-marvell-10g -kmod-sfp -kmod-atlantic -kmod-bcmgenet -kmod-octeontx2-net -kmod-renesas-net-avb -kmod-phy-realtek -kmod-phy-smsc"
+        PACKAGES+=" perlbase-base perlbase-file libselinux libsepol musl-fts luci-app-amlogic btrfs-progs kmod-fs-btrfs"
+        EXCLUDED+=" -libiwinfo-data -libiwinfo20230701 -rpcd-mod-iwinfo -libiwinfo -rpcd-mod-iwinfo -kmod-nls-cp437 -kmod-nls-iso8859-1 -procd-ujail -kmod-tun -kmod-amazon-ena -kmod-e1000e -kmod-vmxnet3 -kmod-rtc-rx8025 -kmod-i2c-mux-pca954x -kmod-gpio-pca953x -partx-utils -kmod-wdt-sp805 -kmod-mvneta -kmod-mvpp2 -kmod-fsl-dpaa1-net -kmod-fsl-dpaa2-net -kmod-fsl-enetc-net -kmod-dwmac-imx -kmod-fsl-fec -kmod-dwmac-rockchip -kmod-dwmac-sun8i -kmod-phy-aquantia -kmod-phy-broadcom -kmod-phy-marvell -kmod-phy-marvell-10g -kmod-sfp -kmod-atlantic -kmod-bcmgenet -kmod-octeontx2-net -kmod-renesas-net-avb -kmod-phy-realtek -kmod-phy-smsc"
     elif [[ "${TYPE:-}" == "ULO" ]]; then
         PACKAGES+=" luci-app-amlogic"
         EXCLUDED+=" -procd-ujail"
