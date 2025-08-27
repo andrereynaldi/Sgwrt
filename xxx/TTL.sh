@@ -23,7 +23,7 @@ hapus_jika_ada "$TTL_HTM"
 buat_file_ttl() {
     local ttl_value="$1"
     echo "Membuat $TTL_FILE dengan nilai TTL: $ttl_value"
-    mkdir -p "$(dirname "$TTL_FILE")"  # Pastikan direktori ada
+    mkdir -p "$(dirname "$TTL_FILE")"
     cat <<EOL > "$TTL_FILE"
 ## Fix TTL
 chain mangle_postrouting_ttl65 {
@@ -40,7 +40,7 @@ EOL
 # Membuat file ttlchanger.lua
 buat_ttl_lua() {
     echo "Membuat $TTL_LUA"
-    mkdir -p "$(dirname "$TTL_LUA")"  # Pastikan direktori ada
+    mkdir -p "$(dirname "$TTL_LUA")"
     cat <<EOL > "$TTL_LUA"
 module("luci.controller.ttlchanger", package.seeall)
 
@@ -101,17 +101,17 @@ function render_page()
     end
 
     tpl.render("ttlchanger", {
-        current_ttl = current_ttl or "N/A",  -- Menampilkan TTL saat ini, atau N/A jika tidak ada
+        current_ttl = current_ttl or "N/A",
         ttl_value = ttl_value or current_ttl
     })
 end
 EOL
 }
 
-# Membuat file ttlchanger.htm di direktori yang benar
+# Membuat file ttlchanger.htm di direktori
 buat_page_htm() {
     echo "Membuat $TTL_HTM"
-    mkdir -p "$(dirname "$TTL_HTM")"  # Pastikan direktori ada
+    mkdir -p "$(dirname "$TTL_HTM")"
     cat <<EOL > "$TTL_HTM"
 <%+header%>
 
@@ -119,7 +119,7 @@ buat_page_htm() {
 
 <% if current_ttl ~= "N/A" then %>
     <div class="cbi-section">
-        <h3>Current: <%= current_ttl %></h3>
+        <h3>Current Value: <%= current_ttl %></h3>
     </div>
 <% else %>
     <div class="cbi-section">
