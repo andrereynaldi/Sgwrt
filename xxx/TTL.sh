@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Mendefinisikan jalur file
+# Mendefinisikan jalur file 
 TTL_FILE="/etc/nftables.d/TTL.nft"
 TTL_LUA="/usr/lib/lua/luci/controller/ttlchanger.lua"
 TTL_HTM="/usr/lib/lua/luci/view/ttlchanger.htm"
@@ -19,13 +19,13 @@ hapus_jika_ada "$TTL_FILE"
 hapus_jika_ada "$TTL_LUA"
 hapus_jika_ada "$TTL_HTM"
 
-# Membuat file TTL.nft dengan nilai TTL yang dinamis
+# Membuat file TTL.nft dengan nilai TTL yang dinamis 
 buat_file_ttl() {
     local ttl_value="$1"
     echo "Membuat $TTL_FILE dengan nilai TTL: $ttl_value"
     mkdir -p "$(dirname "$TTL_FILE")"
     cat <<EOL > "$TTL_FILE"
-## Fix TTL
+## Fix TTL  
 chain mangle_postrouting_ttl65 {
     type filter hook postrouting priority 300; policy accept;
     counter ip ttl set $ttl_value
@@ -37,15 +37,15 @@ chain mangle_prerouting_ttl65 {
 EOL
 }
 
-# Membuat file ttlchanger.lua
+# Membuat file ttlchanger.lua path TTL.txt
 buat_ttl_lua() {
     echo "Membuat $TTL_LUA"
     mkdir -p "$(dirname "$TTL_LUA")"
     cat <<EOL > "$TTL_LUA"
-module("luci.controller.ttlchanger", package.seeall)
+module("luci.controller.ttlchanger", package.seeall) 
 
 function index()
-    entry({"admin", "network", "ttlchanger"}, call("render_page"), _("Time to Live"), 100).leaf = true
+    entry({"admin", "network", "ttlchanger"}, call("render_page"), _("Time to Live"), 100).leaf = true 
 end
 
 function get_current_ttl()
@@ -57,7 +57,7 @@ function get_current_ttl()
 end
 
 function set_ttl(new_ttl)
-    local ttl_file = "/etc/nftables.d/TTL.nft"
+    local ttl_file = "/etc/nftables.d/TTL.nft" 
     local ttl_rule = string.format([[
 ## Fix TTL
 chain mangle_postrouting_ttl65 {
@@ -100,7 +100,7 @@ function render_page()
         end
     end
 
-    tpl.render("ttlchanger", {
+    tpl.render("ttlchanger", { 
         current_ttl = current_ttl or "N/A",
         ttl_value = ttl_value or current_ttl
     })
@@ -108,7 +108,7 @@ end
 EOL
 }
 
-# Membuat file ttlchanger.htm di direktori
+# Membuat file ttlchanger.htm : path TTL.txt
 buat_page_htm() {
     echo "Membuat $TTL_HTM"
     mkdir -p "$(dirname "$TTL_HTM")"
@@ -119,7 +119,7 @@ buat_page_htm() {
 
 <% if current_ttl ~= "N/A" then %>
     <div class="cbi-section">
-        <h3>Current Value: <%= current_ttl %></h3>
+        <h3>Current: <%= current_ttl %></h3>
     </div>
 <% else %>
     <div class="cbi-section">
@@ -144,7 +144,6 @@ EOL
 }
 
 # Eksekusi utama skrip
-# Mendapatkan nilai TTL dari input (default: 65 jika tidak ada)
 TTL_VALUE="${1:-65}"
 
 # Membuat file-file yang diperlukan
@@ -152,7 +151,6 @@ buat_file_ttl "$TTL_VALUE"
 buat_ttl_lua
 buat_page_htm
 
-# Menampilkan pesan sukses
 echo "Semua file berhasil dibuat"
 
 rm -- "$0"
