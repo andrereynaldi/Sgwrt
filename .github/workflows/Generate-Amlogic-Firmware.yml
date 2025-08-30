@@ -437,7 +437,7 @@ jobs:
               ;;
             "Amlogic s905x4 Advan-At01_Ax810")
               TARGET_BUILD="s905x4-advan"
-              KERNEL="6.1.y_6.6.y_6.12.y"
+              KERNEL="6.6.y_6.12.y"
               echo "TARGET_BUILD=$TARGET_BUILD" >> $GITHUB_ENV
               echo "KERNEL=$KERNEL" >> $GITHUB_ENV
               ;;
